@@ -455,6 +455,66 @@
     font-family: Georgia, serif;
   }
   .chip-btn:hover{ background: var(--chip); }
+  .chip-btn:disabled{ opacity:0.5; cursor:default; }
+  .key-points-box{
+    background: var(--paper-2);
+    border-left: 4px solid var(--accent-2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 6px 0 22px 0;
+  }
+  .key-points-box .kp-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color: var(--accent-2);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .key-points-box ul{
+    margin:2px 0 0 0;
+    padding-left:20px;
+  }
+  .key-points-box li{
+    margin-bottom:5px;
+    line-height:1.5;
+  }
+  .bubble.thinking{
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .bubble.thinking .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background: var(--ink-soft);
+    animation: kpBlink 1.1s infinite ease-in-out;
+  }
+  .bubble.thinking .dot:nth-child(2){ animation-delay:0.15s; }
+  .bubble.thinking .dot:nth-child(3){ animation-delay:0.3s; }
+  @keyframes kpBlink{ 0%,80%,100%{opacity:0.25;} 40%{opacity:1;} }
+  .bubble.error{ border-left: 3px solid #a33; }
+  .save-kp-row{ margin: 4px 0 14px 0; }
+  .save-kp-btn{
+    background:none;
+    border:1px dashed var(--accent-2);
+    color: var(--accent-2);
+    padding:5px 11px;
+    border-radius:999px;
+    font-size:0.76rem;
+    cursor:pointer;
+    font-family: Georgia, serif;
+  }
+  .save-kp-btn:hover{ background: var(--paper-2); }
+  .save-kp-btn:disabled{ opacity:0.55; cursor:default; }
+  .journal-kp{
+    background: var(--paper-2);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:8px 0 10px 0;
+  }
+  .journal-kp ul{ margin:2px 0 0 0; padding-left:18px; }
+  .journal-kp li{ margin-bottom:4px; }
   .ask-box{
     display:flex;
     gap:8px;
@@ -2597,6 +2657,10 @@ const CHAPTER_TITLES = {
   general: "General reflections"
 };
 const notesStore = {};
+/* Extra key points the reader saved out of a live Teach Me conversation,
+   on top of the curated KEY_POINTS baked in for every chapter. Session-only,
+   like notesStore — export folds both together. */
+const keyPointsStore = {};
 
 function saveNote(key){
   const ta = document.getElementById('notes-' + key);
@@ -2617,11 +2681,30 @@ function refreshJournal(){
     const h4 = document.createElement('h4');
     h4.textContent = CHAPTER_TITLES[key];
     div.appendChild(h4);
+
+    const allKp = (KEY_POINTS[key] || []).concat(keyPointsStore[key] || []);
+    if(allKp.length){
+      const kpBox = document.createElement('div');
+      kpBox.className = 'journal-kp';
+      const label = document.createElement('div');
+      label.className = 'kp-label';
+      label.textContent = '🔑 Key Points';
+      kpBox.appendChild(label);
+      const ul = document.createElement('ul');
+      allKp.forEach(pt=>{
+        const li = document.createElement('li');
+        li.textContent = pt;
+        ul.appendChild(li);
+      });
+      kpBox.appendChild(ul);
+      div.appendChild(kpBox);
+    }
+
     const p = document.createElement('p');
     if(val){
       p.textContent = val;
     } else {
-      p.textContent = "No notes yet — write something on this chapter's page.";
+      p.textContent = "No personal notes yet — write something on this chapter's page.";
       p.className = "empty";
     }
     div.appendChild(p);
@@ -2632,14 +2715,24 @@ function refreshJournal(){
 function exportJournal(){
   let out = "MY LEARNINGS — Agentic AI Patterns journal\n";
   out += "============================================\n\n";
+  let anything = false;
   Object.keys(CHAPTER_TITLES).forEach(key=>{
     const ta = document.getElementById('notes-' + key);
     const val = ta ? ta.value.trim() : "";
-    if(val){
-      out += CHAPTER_TITLES[key] + "\n" + val + "\n\n";
+    const allKp = (KEY_POINTS[key] || []).concat(keyPointsStore[key] || []);
+    if(!val && !allKp.length) return;
+    anything = true;
+    out += CHAPTER_TITLES[key] + "\n";
+    if(allKp.length){
+      out += "Key Points:\n";
+      allKp.forEach(pt=>{ out += "  - " + pt + "\n"; });
     }
+    if(val){
+      out += "My Notes:\n  " + val.replace(/\n/g, "\n  ") + "\n";
+    }
+    out += "\n";
   });
-  if(out.trim() === "MY LEARNINGS — Agentic AI Patterns journal\n============================================"){
+  if(!anything){
     out += "(No notes written yet.)\n";
   }
   document.getElementById('export-area').value = out;
@@ -2649,7 +2742,190 @@ function exportJournal(){
   }catch(e){}
 }
 
+/* ---------- Curated Key Points boxes (baked in for every chapter) ---------- */
+function injectKeyPoints(){
+  Object.keys(KEY_POINTS).forEach(key=>{
+    const heading = document.querySelector('#page-' + key + ' h2.chapter-title');
+    if(!heading) return;
+    const box = document.createElement('div');
+    box.className = 'key-points-box';
+    const label = document.createElement('div');
+    label.className = 'kp-label';
+    label.textContent = '🔑 Key Points';
+    box.appendChild(label);
+    const ul = document.createElement('ul');
+    KEY_POINTS[key].forEach(pt=>{
+      const li = document.createElement('li');
+      li.textContent = pt;
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    heading.insertAdjacentElement('afterend', box);
+  });
+}
+
 /* ---------- Teach-me chat panels ---------- */
+const KEY_POINTS = {
+  aap__reflection: [
+    "Reflection = the model checks its own answer before it reaches you, instead of shipping the first draft.",
+    "Flow: ask → answer → re-prompt with \"was that complete, what's missing, how could it improve?\" → let it revise.",
+    "No extra models or complexity needed — just one more prompt round.",
+    "Best for code, summaries, and detail-heavy tasks where sloppy first-draft mistakes are common.",
+  ],
+  aap__tooluse: [
+    "LLMs don't know your private data (your DB, files, today's news) — Tool Use lets them go fetch it instead of guessing.",
+    "The model calls real tools/APIs (a vector DB, a REPL, Stripe, WolframAlpha, internal endpoints) rather than hallucinating an answer.",
+    "Requires real plumbing: function-calling schemas, routing, often a framework like LangChain or Semantic Kernel.",
+    "Trade-off: more setup work, but the agent stops guessing and starts using real, current data.",
+  ],
+  aap__react: [
+    "ReAct = Reasoning + Acting in a loop, instead of answering everything in one shot.",
+    "Each cycle: the model reasons about what to do → takes an action (tool call) → observes the result → adjusts.",
+    "Needs three ingredients: tools to act with, memory to keep context, and a reasoning loop to track progress.",
+    "Good for anything beyond a quick one-off answer — lets the agent course-correct as new info comes in.",
+  ],
+  aap__planning: [
+    "Planning breaks a big goal into smaller ordered sub-tasks instead of trying to answer everything at once.",
+    "Example: \"launch a product\" → define audience, build landing page, set up email campaigns, draft announcement copy.",
+    "The plan can be baked into the prompt or generated by the model itself.",
+    "Storing the plan lets the agent resume later — turns it from reactive to proactive, ideal for multi-step workflows.",
+  ],
+  aap__multiagent: [
+    "Multi-Agent = give different agents different roles instead of relying on one generalist agent.",
+    "Common team shape: Researcher gathers info, Planner outlines steps, Coder writes code, Reviewer checks it, PM keeps things moving.",
+    "Doesn't need to be fancy — even naming agents and routing messages through a simple controller works.",
+    "The real payoff is when agents disagree — that friction produces sharper, better-checked answers.",
+  ],
+  maa__background: [
+    "As multi-agent systems grow (more tools, more agents), agents start picking the wrong tool and making poor decisions.",
+    "The fix isn't more tools — it's understanding your underlying agent architecture and what each agent is actually meant to do.",
+    "This lesson previews 6 architectures covered in depth later: Single, Supervisor, Hierarchical, Network, Custom, Swarm.",
+  ],
+  maa__single: [
+    "Simplest architecture: one agent, connected to an LLM, with a set of tools.",
+    "The agent uses the LLM purely to reason about which tool to call for a given query.",
+  ],
+  maa__supervisor: [
+    "One supervisor agent sits above several sub-agents, like a conductor.",
+    "It uses an LLM to decide which sub-agent should handle a query, reviews their output, and either delegates further or returns the final answer.",
+  ],
+  maa__hierarchical: [
+    "When one supervisor has to manage too much, performance drops.",
+    "Fix: split into teams, each with its own specialized supervisor managing its own sub-agents — effectively breaking one big graph into smaller subgraphs.",
+  ],
+  maa__network: [
+    "In a network architecture, any agent can talk directly to any other agent — no fixed chain of command.",
+    "Think of it like a social network for agents: fully peer-to-peer communication.",
+  ],
+  maa__custom: [
+    "Like network architecture, but restricted — each agent can only talk to a hand-picked set of other agents, not everyone.",
+  ],
+  maa__swarm: [
+    "Swarm agents dynamically hand off control to whichever specialist is best suited for the current moment.",
+    "The system remembers which agent was last active so the conversation stays continuous, even as control passes around.",
+  ],
+  adk__intro: [
+    "Monolithic \"do-everything\" agents don't scale — just like monolithic software, they become hard to debug and error-prone as instructions pile up.",
+    "Multi-Agent Systems (MAS) are the AI equivalent of microservices: specialized agents (Parser, Critic, Dispatcher) are more modular, testable, and reliable than one generalist.",
+    "This lesson catalogs 8 concrete ADK design patterns, each with real pseudocode, for building production-grade agent teams.",
+  ],
+  adk__sequential: [
+    "Sequential Pipeline = an assembly line — Agent A finishes, hands off to Agent B, and so on. Linear, deterministic, easy to debug.",
+    "Best for data-processing pipelines (e.g. Parser → Extractor → Summarizer for a PDF).",
+    "In ADK, `SequentialAgent` orchestrates the chain; each agent writes its result to `session.state` via `output_key` so the next agent knows where to pick up.",
+  ],
+  adk__coordinator: [
+    "Coordinator/Dispatcher = a central agent that reads user intent and routes the request to the right specialist (e.g. Billing vs. Tech Support).",
+    "Great for customer-service-style bots with clearly distinct request types.",
+    "In ADK this is LLM-driven delegation: a parent `CoordinatorAgent` with `sub_agents`, routed automatically by ADK's AutoFlow based on each sub-agent's `description`.",
+  ],
+  adk__parallel: [
+    "Parallel Fan-Out/Gather runs independent agents simultaneously instead of one after another, cutting latency and gathering diverse perspectives.",
+    "Example: Security Auditor, Style Enforcer, and Performance Analyst all review a PR at once, then a Synthesizer agent merges their feedback.",
+    "In ADK, `ParallelAgent` runs sub-agents concurrently — since they share session state, give each one a unique `output_key` to avoid race conditions.",
+  ],
+  adk__hierarchical: [
+    "Hierarchical Decomposition breaks a task too big for one agent's context window into sub-tasks handled by child agents.",
+    "Unlike simple routing, the parent agent delegates part of the work and waits for the result before continuing its own reasoning.",
+    "In ADK, wrap a sub-agent in `AgentTool` so the parent can call its entire workflow like a single function.",
+  ],
+  adk__generator_critic: [
+    "Separates content creation (Generator) from content validation (Critic) — a Pass/Fail quality gate, not just polish.",
+    "If the Critic fails the draft, specific feedback loops back to the Generator; if it passes, the loop exits.",
+    "In ADK: a `SequentialAgent` runs the draft-and-review pair, wrapped in a `LoopAgent` with an explicit exit condition (e.g. Critic outputs \"PASS\").",
+  ],
+  adk__iterative: [
+    "Iterative Refinement is about qualitative improvement (getting better), not pass/fail correctness — like a sculptor revising a piece.",
+    "Cycle: Generator drafts → Critique Agent gives optimization notes → Refinement Agent polishes based on those notes, repeat.",
+    "In ADK, implemented with `LoopAgent`; exits either via `max_iterations` or early, by an agent signaling `escalate=True` once quality is good enough.",
+  ],
+  adk__human: [
+    "Human-in-the-loop = agents handle routine groundwork, but a human must approve high-stakes, irreversible actions (payments, prod deploys, sensitive-data actions).",
+    "In ADK, an agent calls an `ApprovalTool` that pauses execution and waits for a human reviewer's yes/no before continuing.",
+  ],
+  adk__composite: [
+    "Real production systems combine patterns rather than picking just one — e.g. Coordinator routing → Parallel research → Generator/Critic polish, chained together.",
+    "Three practical rules: treat `session.state` as a shared whiteboard with clear `output_key` names; write precise sub-agent `description` fields since routing agents read them as documentation; start with a simple sequential chain and add complexity only once it works.",
+  ],
+  ds004__background: [
+    "Dr. Maya Kapoor's affordable, ethical Mumbai clinic grew fast — now she wants to scale it into a multi-speciality hospital without losing what made it work.",
+    "Growing pains: inconsistent care across doctors, high staff attrition, low-salary-driven errors, expensive repeat training, and constant tension between revenue growth and reputation/quality.",
+  ],
+  ds004__leaders: [
+    "Maya studies two Indian eye-care institutions that already solved similar problems at scale: LVPEI and Sankara Nethralaya (SN).",
+    "LVPEI uses a pyramid model (community care up to specialist centers) with built-in training at every tier, plus cross-subsidization (paying patients fund free/low-cost care) to stay both standardized and affordable.",
+    "SN instead relies on a strong culture of equal-quality care for everyone, plus teleophthalmology/mobile units to extend reach without ballooning costs.",
+    "Takeaway: standardization, attrition, errors, and training costs can all be tackled through either system design or culture — not just more spending.",
+  ],
+  ds004__ai_question: [
+    "Central question: where can AI raise quality of care without breaking affordability?",
+    "The comparison framework maps each of Maya's problems (governance, attrition, errors, training costs, revenue-vs-reputation) to a matching potential AI role — e.g. decision-support for governance, AI onboarding/simulation for attrition, error-detection algorithms for low-salary-driven mistakes.",
+  ],
+  ds004__appendix: [
+    "Surveys real (mostly Western-piloted) healthcare AI use cases — EHR nudges, OR safety monitoring, LLM copilots, AI scheduling, ambient scribes, VR training, CDS dashboards — with their evidence and cost.",
+    "These Western price points are very high relative to Indian labor costs, so they're a reference point for potential, not a directly adoptable price list.",
+    "When spread across Maya's 200,000 patients/year, each AI solution adds anywhere from roughly ₹10 to ₹495 per patient — the appendix breaks down which buys the most value per rupee.",
+  ],
+  ds004__discussion: [
+    "Discussion frames: which problems are AI's strengths vs. better solved by human systems (like LVPEI training or SN's culture)?",
+    "Distinguishes automation (fully AI-run tasks like billing) from augmentation (AI assisting human judgment, like decision-support).",
+    "Raises the reward-function question: if AI is optimized purely for speed/cost, quality can suffer — success should be measured by zero avoidable harm, equitable access, and patient trust, not just efficiency.",
+    "Includes a financial exercise modeling gross revenue, subsidy coverage, and which AI investments give the best quality gain per rupee spent.",
+  ],
+  ds004__final: [
+    "Maya's goal: India's first AI-enabled, values-driven multi-speciality hospital.",
+    "The core discipline is selective, staged AI adoption — targeting spend where it most improves safety/quality, while avoiding solutions that would double per-patient costs and break affordability.",
+  ],
+  ds005__background: [
+    "HelixServe, a fast-scaling, well-funded startup, is straining its customer support org: agents juggle 10 disconnected systems per query.",
+    "Metrics have degraded badly — Average Handling Time nearly doubled (3→7 min), CSAT dropped (8.2→6.1), attrition hit 28%, and inefficiency is costing ~$4.2M/year.",
+    "Head of Support Meera Joshi must fix this without breaking the human team that is the company's actual frontline brand experience.",
+  ],
+  ds005__catalyst: [
+    "The board explicitly invokes a cautionary tale (\"WebWave\") of a company that scaled too fast and lost customer focus — the CEO refuses to repeat that mistake.",
+    "The CFO warns that without automation, costs will spiral as query volume is projected to double in peak season.",
+    "Meera is boxed in: raise satisfaction, cut costs, and scale — all at once, without burning out her team.",
+  ],
+  ds005__challenge: [
+    "Leadership sees AI as the fix: handling FAQs, recommending answers in real time, and predicting intent to cut back-and-forth.",
+    "Meera personally worries what AI adoption means for her team's roles and her own career path — upskilling opportunity or devaluation?",
+    "Real costs are more than just AI credits ($2,500/yr) — licenses, integration, and training push the true cost to ~$13,500/yr, with real risk of poorly trained AI frustrating customers or legacy-system integration causing costly downtime.",
+  ],
+  ds005__stakeholders: [
+    "Meera Joshi: her career and team's morale ride on this transformation succeeding.",
+    "Support agents (like Taniya): fear AI will replace empathy with \"efficiency,\" not augment their work.",
+    "CFO's office wants cost discipline and scalability; IT/Engineering wants airtight specs before touching legacy systems; Compliance worries about data privacy and AI bias; the CEO wants growth without breaking customer trust.",
+  ],
+  ds005__mandate: [
+    "Board mandate: deploy AI within 9 months, capped at $50,000/year total (licenses, deployment, integration, maintenance).",
+    "Success is tied to renewing ~$100M in enterprise contracts — real revenue risk either way.",
+    "Projected numbers: current inefficiency costs ~$40,000/yr; AI costs ~$16,000/yr all-in; net savings ~$22,600/yr; net ROI ~$9,000/yr, plus intended CSAT recovery (6.1→9) and lower attrition.",
+  ],
+  ds005__discussion: [
+    "Discussion spans five lenses: user empathy (AI augmenting Taniya's role, not replacing her), ROI beyond the spreadsheet (trust, retention, competitive edge), technical challenges (training AI on diverse queries, ensuring fairness/privacy), change management (helping agents adapt), and scaling risk (what happens if query volume doubles, or competitors move faster).",
+  ],
+};
+
 const TEACH_DATA = {
   aap__reflection: {
     intro: [
@@ -3021,6 +3297,10 @@ const TEACH_DATA = {
   }
 };
 
+/* Per-chapter live conversation history, session-only — sent to /api/teach
+   so the tutor remembers what's already been asked in this sitting. */
+const teachHistory = {};
+
 function toggleTeach(key){
   const panel = document.getElementById('teach-' + key);
   if(panel.classList.contains('open')){
@@ -3034,9 +3314,10 @@ function toggleTeach(key){
 }
 
 function buildTeachPanel(key, panel){
-  const data = TEACH_DATA[key];
+  const data = TEACH_DATA[key] || {intro: [], faq: []};
+  teachHistory[key] = [];
 
-  // Intro conversation
+  // Intro conversation (static, instant, no API call — just orientation)
   data.intro.forEach((turn, i)=>{
     const row = document.createElement('div');
     row.className = 'chat-row';
@@ -3053,14 +3334,18 @@ function buildTeachPanel(key, panel){
     panel.appendChild(row);
   });
 
-  // FAQ chips
+  // Suggested-question chips — clicking one asks the live tutor that question,
+  // same as typing it in, it's just a shortcut to a good starting question.
   const chipRow = document.createElement('div');
   chipRow.className = 'chip-row';
   data.faq.forEach(item=>{
     const chip = document.createElement('button');
     chip.className = 'chip-btn';
     chip.textContent = item.q;
-    chip.onclick = ()=> askQuestion(key, item.q, item.a, panel);
+    chip.onclick = ()=> {
+      if(chip.disabled) return;
+      sendToTutor(key, item.q, panel, item.a);
+    };
     chipRow.appendChild(chip);
   });
   panel.appendChild(chipRow);
@@ -3073,70 +3358,117 @@ function buildTeachPanel(key, panel){
   input.placeholder = "Type a doubt about this pattern...";
   const btn = document.createElement('button');
   btn.textContent = 'Ask';
-  btn.onclick = ()=> {
+  const submit = ()=> {
+    if(btn.disabled) return;
     if(input.value.trim() === "") return;
-    handleFreeQuestion(key, input.value.trim(), panel);
+    sendToTutor(key, input.value.trim(), panel);
     input.value = "";
   };
-  input.addEventListener('keydown', e=>{ if(e.key === 'Enter') btn.click(); });
+  btn.onclick = submit;
+  input.addEventListener('keydown', e=>{ if(e.key === 'Enter') submit(); });
   askBox.appendChild(input);
   askBox.appendChild(btn);
   panel.appendChild(askBox);
 
   const note = document.createElement('div');
   note.className = 'fallback-note';
-  note.textContent = "This mini-teacher matches your question to prepared answers. For anything it can't answer, ask me directly in our chat — I'll explain it and, if it's a good addition, we can add it to this book.";
+  note.textContent = "Ask anything about this pattern — the tutor reads this chapter and replies fresh, in plain language, and will sometimes check that it's actually landing.";
   panel.appendChild(note);
 }
 
-function askQuestion(key, q, a, panel){
-  appendChat(panel, q, a);
-}
-
-function handleFreeQuestion(key, question, panel){
-  const data = TEACH_DATA[key];
-  const lower = question.toLowerCase();
-  let best = null;
-  let bestScore = 0;
-  data.faq.forEach(item=>{
-    let score = 0;
-    item.kw.forEach(k=>{ if(lower.includes(k)) score++; });
-    if(score > bestScore){ bestScore = score; best = item; }
-  });
-  if(best && bestScore > 0){
-    appendChat(panel, question, best.a);
-  } else {
-    appendChat(panel, question, "I don't have a prepared answer for that one yet in this journal. Ask me directly in our chat — I'll explain it in simple terms, and we can add the good version of the answer back into this page.");
-  }
-}
-
-function appendChat(panel, q, a){
+/* Live call to the tutor. `fallbackAnswer` (optional) is only used if the
+   live call fails, so a chip question still gets *something* useful even if
+   the API isn't reachable yet. */
+async function sendToTutor(key, question, panel, fallbackAnswer){
   const askBox = panel.querySelector('.ask-box');
+  panel.querySelectorAll('.chip-btn, .ask-box button, .ask-box input').forEach(el=> el.disabled = true);
 
   const userRow = document.createElement('div');
   userRow.className = 'chat-row user';
   const ub = document.createElement('div');
   ub.className = 'bubble user';
-  ub.textContent = q;
+  ub.textContent = question;
   userRow.appendChild(ub);
   panel.insertBefore(userRow, askBox);
+
+  const thinkRow = document.createElement('div');
+  thinkRow.className = 'chat-row';
+  const thinkBubble = document.createElement('div');
+  thinkBubble.className = 'bubble teacher thinking';
+  thinkBubble.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+  thinkRow.appendChild(thinkBubble);
+  panel.insertBefore(thinkRow, askBox);
+  thinkRow.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  const articleEl = document.querySelector('#page-' + key + ' .article-text');
+  const articleText = articleEl ? articleEl.innerText : '';
+  const chapterTitle = (CHAPTER_TITLES[key] || key);
+
+  let reply = null;
+  let isError = false;
+  try{
+    const res = await fetch('/api/teach', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chapterTitle: chapterTitle,
+        articleText: articleText,
+        history: teachHistory[key] || [],
+        question: question
+      })
+    });
+    if(!res.ok) throw new Error('bad status ' + res.status);
+    const data = await res.json();
+    reply = data.reply;
+    if(!reply) throw new Error('empty reply');
+  }catch(err){
+    isError = true;
+    reply = fallbackAnswer
+      ? fallbackAnswer
+      : "I can't reach the live tutor right now (the site's Teach Me AI isn't set up yet, or the connection dropped) — try again in a bit, or ask me directly in our chat.";
+  }
+
+  thinkRow.remove();
 
   const teacherRow = document.createElement('div');
   teacherRow.className = 'chat-row';
   const tb = document.createElement('div');
-  tb.className = 'bubble teacher';
+  tb.className = 'bubble teacher' + (isError ? ' error' : '');
   const tag = document.createElement('span');
   tag.className = 'tag';
-  tag.textContent = 'Simple answer';
+  tag.textContent = isError ? "Couldn't reach live tutor" : 'Tutor';
   tb.appendChild(tag);
   const txt = document.createElement('span');
-  txt.textContent = a;
+  txt.textContent = reply;
   tb.appendChild(txt);
   teacherRow.appendChild(tb);
   panel.insertBefore(teacherRow, askBox);
 
+  if(!isError){
+    teachHistory[key] = (teachHistory[key] || []).concat([
+      {role: 'user', content: question},
+      {role: 'assistant', content: reply}
+    ]);
+
+    const saveRow = document.createElement('div');
+    saveRow.className = 'save-kp-row';
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'save-kp-btn';
+    saveBtn.textContent = '⭐ Save this to my journal as a key point';
+    saveBtn.onclick = ()=>{
+      keyPointsStore[key] = (keyPointsStore[key] || []).concat([reply]);
+      saveBtn.textContent = '✓ Saved to journal';
+      saveBtn.disabled = true;
+    };
+    saveRow.appendChild(saveBtn);
+    panel.insertBefore(saveRow, askBox);
+  }
+
+  panel.querySelectorAll('.chip-btn, .ask-box button, .ask-box input').forEach(el=> el.disabled = false);
   teacherRow.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
+
+injectKeyPoints();
 </script>
 </body>
 </html>
