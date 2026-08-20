@@ -4,23 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agentic AI Patterns — My Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
+  /* ============ Rithika Christy's Book — brand tokens ============ */
   :root{
-    --paper:#faf6ee;
-    --paper-2:#f3ecdd;
-    --ink:#2b2620;
-    --ink-soft:#5c5347;
-    --accent:#8a5a3b;
-    --accent-2:#3f6b5c;
-    --line:#e2d6bd;
-    --chip:#eee2c8;
-    --shadow: 0 10px 30px rgba(60,45,20,0.15);
+    /* neutrals — paper & ink, from the brand guide */
+    --paper:#F6F2EA;
+    --paper-2:#EFE8DA;
+    --surface:#FFFFFF;
+    --ink:#241F19;
+    --ink-soft:#6E6455;
+    --line:#E1D6C2;
+    --chip:#EFE8DA;
+
+    /* accents — one per job (brand: professional / hobby / spark) */
+    --accent:#1B3A5C;          /* professional — primary interactive color */
+    --on-accent:#FFFFFF;
+    --accent-2:#8A6224;        /* hobby, AA-safe on-light variant for text/icons */
+    --accent-2-fill:#B8863B;   /* hobby, fill variant for badges/buttons */
+    --on-accent-2:#241F19;
+    --spark:#96401F;           /* spark, AA-safe on-light variant for text/icons */
+    --spark-fill:#B85631;      /* spark, fill variant — streaks, highlights, new-insight */
+    --on-spark:#FFFFFF;
+
+    /* fonts */
+    --font-heading:'Lora', Georgia, 'Times New Roman', serif;
+    --font-body:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    /* radius */
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:16px;
+    --radius-pill:999px;
+
+    /* tinted shadows (ink rgb) */
+    --shadow-1: 0 1px 2px rgba(36,31,25,0.06);
+    --shadow-2: 0 1px 2px rgba(36,31,25,0.06), 0 10px 24px -10px rgba(36,31,25,0.16);
+    --shadow-3: 0 4px 8px rgba(36,31,25,0.12), 0 22px 44px -12px rgba(36,31,25,0.28);
+    --shadow: var(--shadow-2);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
-    background: linear-gradient(180deg,#e9e1cd,#d9cdae);
+    font-family: var(--font-body);
+    background: linear-gradient(180deg,#F6F2EA,#EFE8DA);
     color: var(--ink);
     min-height:100vh;
   }
@@ -32,25 +62,31 @@
   .sidebar{
     width:250px;
     flex-shrink:0;
-    background: #2b2620;
-    color:#f3ecdd;
+    background: var(--ink);
+    color:#F3ECE1;
     padding:28px 18px;
     position:sticky;
     top:0;
     height:100vh;
     overflow-y:auto;
   }
-  .sidebar h1{
-    font-size:1.15rem;
-    line-height:1.35;
-    margin:0 0 4px 0;
-    font-weight:700;
+  /* Wordmark: always dark ink on a literal white plate — never reversed out,
+     never on a colored fill, per the brand guide. */
+  .wordmark{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#FFFFFF;color:#241F19;
+    padding:7px 13px;border-radius:var(--radius-sm);
+    border:1px solid #E1D6C2;
+    font-family:var(--font-heading);font-weight:600;font-size:0.95rem;
+    line-height:1.2;
   }
+  .wordmark .wm-dot{width:8px;height:8px;border-radius:50%;background:var(--spark-fill);flex-shrink:0;}
+  .sidebar .wordmark{ margin-bottom:14px; }
   .sidebar .byline{
     font-size:0.78rem;
     color:#c8bda2;
     margin-bottom:24px;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-style: italic;
   }
   .nav-group-label{
@@ -71,7 +107,7 @@
     color:#e7dcc2;
     padding:9px 10px;
     border-radius:8px;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-size:0.9rem;
     cursor:pointer;
     margin-bottom:2px;
@@ -120,7 +156,7 @@
     box-shadow: 0 8px 20px rgba(60,45,20,0.14);
   }
   .lib-card-icon{ font-size:1.6rem; margin-bottom:8px; }
-  .lib-card-title{ font-weight:700; color:var(--accent); margin-bottom:4px; line-height:1.3; }
+  .lib-card-title{ font-family: var(--font-heading); font-weight:600; color:var(--ink); margin-bottom:4px; line-height:1.3; }
   .lib-card-meta{ font-size:0.75rem; color:var(--ink-soft); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em; }
   .lib-card-desc{ font-size:0.88rem; line-height:1.5; color:var(--ink); }
 
@@ -154,7 +190,7 @@
     color:#fdf9ef;
     display:flex;
     flex-direction:column;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     box-shadow:
       inset 5px 0 8px rgba(0,0,0,0.22),
       2px 4px 0 rgba(0,0,0,0.08),
@@ -191,7 +227,8 @@
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.25));
   }
   .book-title{
-    font-weight:700;
+    font-family: var(--font-heading);
+    font-weight:600;
     font-size:1.05rem;
     line-height:1.32;
     margin-bottom:8px;
@@ -206,10 +243,10 @@
     padding-top:10px;
     border-top:1px solid rgba(255,255,255,0.25);
   }
-  .book--amber{ background: linear-gradient(160deg, #a5703f, #7c4f28); }
-  .book--teal{ background: linear-gradient(160deg, #4f8a76, #33594c); }
-  .book--plum{ background: linear-gradient(160deg, #8a5279, #5e3453); }
-  .book--slate{ background: linear-gradient(160deg, #55708a, #37495c); }
+  .book--amber{ background: linear-gradient(160deg, #B8863B, #8A6224); }
+  .book--teal{ background: linear-gradient(160deg, #2C4F73, #1B3A5C); }
+  .book--plum{ background: linear-gradient(160deg, #B85631, #8A3D20); }
+  .book--slate{ background: linear-gradient(160deg, #33587F, #1B3A5C); }
 
   /* ---------- Chapter list (inside a Book page) ---------- */
   .chapter-list{
@@ -250,25 +287,25 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
   }
   .chapter-body{ flex:1; min-width:0; }
-  .chapter-row-title{ font-weight:700; color:var(--accent); margin-bottom:3px; line-height:1.3; }
+  .chapter-row-title{ font-family: var(--font-heading); font-weight:600; color:var(--ink); margin-bottom:3px; line-height:1.3; }
   .chapter-meta{ font-size:0.72rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
   .chapter-desc{ font-size:0.88rem; line-height:1.5; color:var(--ink); }
   .chapter-arrow{ flex-shrink:0; font-size:1.3rem; color: var(--chapter-accent, var(--accent)); opacity:0.6; }
 
   .code-block{
-    background:#2b2620;
-    color:#e7dcc2;
-    border-radius:10px;
+    background: var(--ink);
+    color:#E8E1D3;
+    border-radius: var(--radius-md);
     padding:16px 18px;
     overflow-x:auto;
     margin: 16px 0 22px 0;
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-size:0.82rem;
-    line-height:1.6;
+    line-height:1.7;
   }
   .code-block .code-label{
     display:block;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-size:0.72rem;
     text-transform:uppercase;
     letter-spacing:0.08em;
@@ -326,9 +363,9 @@
   @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
 
   .sheet{
-    background: var(--paper);
+    background: var(--surface);
     border:1px solid var(--line);
-    border-radius:14px;
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     padding: 40px 46px;
     margin-bottom: 28px;
@@ -336,9 +373,11 @@
   @media (max-width:640px){ .sheet{ padding:26px 20px; } .main{padding:28px 4vw 70px 4vw;} }
 
   h2.chapter-title{
+    font-family: var(--font-heading);
+    font-weight:600;
     font-size:1.9rem;
     margin:0 0 4px 0;
-    color: var(--accent);
+    color: var(--ink);
   }
   .chapter-kicker{
     font-size:0.85rem;
@@ -391,12 +430,12 @@
     display:inline-flex;
     align-items:center;
     gap:8px;
-    background: var(--accent-2);
-    color:#fff;
+    background: var(--accent-2-fill);
+    color: var(--ink);
     border:none;
     padding:10px 18px;
     border-radius:999px;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-size:0.92rem;
     cursor:pointer;
     margin: 8px 0 4px 0;
@@ -452,22 +491,23 @@
     border-radius:999px;
     font-size:0.82rem;
     cursor:pointer;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
   }
   .chip-btn:hover{ background: var(--chip); }
   .chip-btn:disabled{ opacity:0.5; cursor:default; }
   .key-points-box{
-    background: var(--paper-2);
-    border-left: 4px solid var(--accent-2);
-    border-radius: 8px;
+    background: var(--surface);
+    border-left: 4px solid var(--spark-fill);
+    border-radius: var(--radius-sm);
     padding: 14px 18px;
     margin: 6px 0 22px 0;
+    box-shadow: var(--shadow-1);
   }
   .key-points-box .kp-label{
     font-size:0.72rem;
     text-transform:uppercase;
     letter-spacing:0.06em;
-    color: var(--accent-2);
+    color: var(--spark);
     font-weight:700;
     margin-bottom:6px;
   }
@@ -497,21 +537,23 @@
   .save-kp-row{ margin: 4px 0 14px 0; }
   .save-kp-btn{
     background:none;
-    border:1px dashed var(--accent-2);
-    color: var(--accent-2);
+    border:1px dashed var(--spark);
+    color: var(--spark);
     padding:5px 11px;
-    border-radius:999px;
+    border-radius:var(--radius-pill);
     font-size:0.76rem;
     cursor:pointer;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
   }
   .save-kp-btn:hover{ background: var(--paper-2); }
   .save-kp-btn:disabled{ opacity:0.55; cursor:default; }
   .journal-kp{
-    background: var(--paper-2);
-    border-radius:8px;
+    background: var(--surface);
+    border-left: 3px solid var(--spark-fill);
+    border-radius:var(--radius-sm);
     padding:10px 14px;
     margin:8px 0 10px 0;
+    box-shadow: var(--shadow-1);
   }
   .journal-kp ul{ margin:2px 0 0 0; padding-left:18px; }
   .journal-kp li{ margin-bottom:4px; }
@@ -525,7 +567,7 @@
     padding:10px 12px;
     border-radius:8px;
     border:1px solid var(--line);
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-size:0.9rem;
   }
   .ask-box button{
@@ -535,7 +577,7 @@
     padding:0 16px;
     border-radius:8px;
     cursor:pointer;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
   }
   .fallback-note{
     font-size:0.8rem;
@@ -562,7 +604,7 @@
     border:1px solid var(--line);
     border-radius:10px;
     padding:12px 14px;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-size:0.95rem;
     background:#fffdf7;
     resize:vertical;
@@ -574,13 +616,13 @@
     margin-top:8px;
   }
   .save-btn{
-    background: var(--accent-2);
-    color:#fff;
+    background: var(--accent);
+    color: var(--on-accent);
     border:none;
     padding:8px 14px;
-    border-radius:8px;
+    border-radius:var(--radius-sm);
     cursor:pointer;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     font-size:0.85rem;
   }
   .save-status{
@@ -636,9 +678,11 @@
     margin: 6px 0 18px 0;
   }
   .cover-page h1{
+    font-family: var(--font-heading);
+    font-weight:600;
     font-size:2.4rem;
     margin:0 0 6px 0;
-    color:var(--accent);
+    color:var(--ink);
   }
   .cover-page .sub{
     font-size:1.05rem;
@@ -677,17 +721,156 @@
     padding:9px 16px;
     border-radius:8px;
     cursor:pointer;
-    font-family: Georgia, serif;
+    font-family: var(--font-body);
     color:var(--ink);
   }
   .footer-nav button:hover{ background:var(--chip); }
+
+  /* ---------- Selection toolbar (highlight / doubt / look up a term) ---------- */
+  mark.hl-important{
+    background: color-mix(in srgb, var(--spark-fill) 32%, transparent);
+    color: inherit;
+    border-radius:2px;
+    padding:0 1px;
+  }
+  mark.hl-doubt{
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border-bottom: 2px dotted var(--accent);
+    color: inherit;
+    border-radius:2px;
+    padding:0 1px;
+  }
+  .selection-toolbar{
+    position:absolute;
+    display:none;
+    z-index:1300;
+    background: var(--ink);
+    border-radius: var(--radius-pill);
+    padding:6px;
+    box-shadow: var(--shadow-3);
+    gap:2px;
+    align-items:center;
+  }
+  .selection-toolbar.open{ display:flex; }
+  .selection-toolbar button{
+    background:transparent;
+    border:none;
+    color:#F3ECE1;
+    font-family: var(--font-body);
+    font-size:0.78rem;
+    font-weight:600;
+    padding:7px 10px;
+    border-radius: var(--radius-pill);
+    cursor:pointer;
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .selection-toolbar button:hover{ background: rgba(255,255,255,0.14); }
+  .selection-toolbar .divider{ width:1px; height:18px; background:rgba(255,255,255,0.2); margin:0 2px; flex-shrink:0; }
+  .journal-highlights{ margin:8px 0 6px 0; }
+  .journal-highlights .hl-group-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-weight:700;
+    margin:8px 0 4px 0;
+  }
+  .journal-highlights .hl-group-label.important{ color: var(--spark); }
+  .journal-highlights .hl-group-label.doubt{ color: var(--accent); }
+  .journal-highlights ul{ margin:0 0 4px 0; padding-left:20px; }
+  .journal-highlights li{ margin-bottom:4px; line-height:1.5; font-size:0.9rem; font-style:italic; color:var(--ink-soft); }
+
+  /* ---------- Mobile topbar + off-canvas sidebar ---------- */
+  .mobile-topbar{
+    display:none;
+    position:sticky;
+    top:0;
+    z-index:1100;
+    align-items:center;
+    gap:12px;
+    background: var(--ink);
+    color:#F3ECE1;
+    padding:12px 16px;
+    box-shadow: var(--shadow-2);
+  }
+  .hamburger-btn{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.3);
+    color:#F3ECE1;
+    font-size:1.2rem;
+    line-height:1;
+    padding:6px 11px;
+    border-radius:var(--radius-sm);
+    cursor:pointer;
+  }
+  .sidebar-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(20,15,5,0.45);
+    z-index:1050;
+  }
+  .sidebar-backdrop.open{ display:block; }
+
+  @media (max-width: 880px){
+    .mobile-topbar{ display:flex; }
+    .app{ display:block; }
+    .sidebar{
+      position:fixed;
+      top:0; left:0;
+      height:100vh;
+      z-index:1150;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.35);
+      transform: translateX(-104%);
+      transition: transform 0.25s ease;
+    }
+    .sidebar.open{ transform: translateX(0); }
+    .main{ padding: 22px 5vw 70px 5vw; max-width:100%; }
+  }
+
+  @media (max-width: 640px){
+    .main{ padding: 16px 4vw 60px 4vw; }
+    .sheet{ padding:22px 16px; }
+    h2.chapter-title{ font-size:1.45rem; }
+    .book{ width:132px; min-height:196px; padding:16px 12px 12px 18px; }
+    .book-icon{ font-size:1.6rem; margin-bottom:8px; }
+    .book-title{ font-size:0.92rem; }
+    .bookshelf{ gap:18px; }
+    .chapter-row{ padding:13px 14px; gap:12px; }
+    .chapter-num{ width:38px; height:38px; font-size:1.05rem; }
+    .footer-nav{ flex-wrap:wrap; gap:8px; }
+    .footer-nav button{ flex:1 1 45%; font-size:0.85rem; padding:9px 10px; }
+    .teach-panel{ padding:16px 14px; }
+    .bubble{ max-width:92%; font-size:0.9rem; }
+    .ask-box{ flex-wrap:wrap; }
+    .ask-box input{ flex:1 1 100%; }
+    .ask-box button{ flex:1 1 100%; padding:10px 16px; }
+    .key-points-box{ padding:12px 14px; }
+    figure.illustration img{ border-radius:8px; }
+    .selection-toolbar{ flex-wrap:wrap; max-width:88vw; justify-content:center; }
+    .selection-toolbar button{ font-size:0.72rem; padding:7px 8px; }
+  }
 </style>
 </head>
 <body>
+<div class="mobile-topbar">
+  <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+  <span class="wordmark"><span class="wm-dot"></span>My Library</span>
+</div>
+<div class="sidebar-backdrop" onclick="closeSidebar()"></div>
+<div class="selection-toolbar" id="selection-toolbar">
+  <button onclick="markSelection('important')">⭐ Important</button>
+  <button onclick="markSelection('doubt')">❓ Doubt</button>
+  <span class="divider"></span>
+  <button onclick="askTutorAboutSelection()">💬 Ask tutor</button>
+  <button onclick="googleSelection()">🌐 Google it</button>
+</div>
 <div class="app">
 
   <nav class="sidebar">
-    <h1>📚 My Library</h1>
+    <span class="wordmark"><span class="wm-dot"></span>My Library</span>
     <div class="byline">Lessons I've sent in, grouped into books as I learn</div>
 
     <button class="nav-btn" data-page="home">🏠 Library Home</button>
@@ -736,7 +919,7 @@
         <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › AI in the Real World: Case Studies</div>
         <h1>📊 AI in the Real World: Case Studies</h1>
         <div class="sub">Business case studies on adopting AI in real organizations — strategy, ROI, ethics, and people, not code.</div>
-        <div class="chapter-list" style="--chapter-accent:#3f6b5c;">
+        <div class="chapter-list" style="--chapter-accent:#1B3A5C;">
           <div class="chapter-row" onclick="goPage('ds004__cover')">
             <div class="chapter-num">1</div>
             <div class="chapter-body">
@@ -765,7 +948,7 @@
         <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › Agentic AI &amp; LLM Engineering</div>
         <h1>🤖 Agentic AI &amp; LLM Engineering</h1>
         <div class="sub">Design patterns and practical techniques for building LLM-based agents.</div>
-        <div class="chapter-list" style="--chapter-accent:#8a5a3b;">
+        <div class="chapter-list" style="--chapter-accent:#8A6224;">
           <div class="chapter-row" onclick="goPage('aap__cover')">
             <div class="chapter-num">1</div>
             <div class="chapter-body">
@@ -2611,6 +2794,7 @@ function goPage(id){
   if(btn) btn.classList.add('active');
   window.scrollTo({top:0, behavior:'instant'});
   if(id === 'learnings') refreshJournal();
+  closeSidebar();
 }
 document.querySelectorAll('.nav-btn[data-page]').forEach(b=>{
   b.addEventListener('click', ()=> goPage(b.getAttribute('data-page')));
@@ -2618,6 +2802,16 @@ document.querySelectorAll('.nav-btn[data-page]').forEach(b=>{
 document.querySelectorAll('.toc li[data-page]').forEach(li=>{
   li.addEventListener('click', ()=> goPage(li.getAttribute('data-page')));
 });
+
+/* ---------- Mobile off-canvas sidebar ---------- */
+function toggleSidebar(){
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-backdrop').classList.toggle('open');
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('open');
+  document.querySelector('.sidebar-backdrop').classList.remove('open');
+}
 
 /* ---------- Journal notes (in-memory, per-session) ---------- */
 const CHAPTER_TITLES = {
@@ -2700,6 +2894,31 @@ function refreshJournal(){
       div.appendChild(kpBox);
     }
 
+    const hl = highlightsStore[key];
+    if(hl && (hl.important.length || hl.doubt.length)){
+      const hlBox = document.createElement('div');
+      hlBox.className = 'journal-highlights';
+      if(hl.important.length){
+        const lbl = document.createElement('div');
+        lbl.className = 'hl-group-label important';
+        lbl.textContent = '⭐ Marked important';
+        hlBox.appendChild(lbl);
+        const ul = document.createElement('ul');
+        hl.important.forEach(t=>{ const li = document.createElement('li'); li.textContent = '"' + t + '"'; ul.appendChild(li); });
+        hlBox.appendChild(ul);
+      }
+      if(hl.doubt.length){
+        const lbl = document.createElement('div');
+        lbl.className = 'hl-group-label doubt';
+        lbl.textContent = '❓ Had a doubt about';
+        hlBox.appendChild(lbl);
+        const ul = document.createElement('ul');
+        hl.doubt.forEach(t=>{ const li = document.createElement('li'); li.textContent = '"' + t + '"'; ul.appendChild(li); });
+        hlBox.appendChild(ul);
+      }
+      div.appendChild(hlBox);
+    }
+
     const p = document.createElement('p');
     if(val){
       p.textContent = val;
@@ -2720,12 +2939,21 @@ function exportJournal(){
     const ta = document.getElementById('notes-' + key);
     const val = ta ? ta.value.trim() : "";
     const allKp = (KEY_POINTS[key] || []).concat(keyPointsStore[key] || []);
-    if(!val && !allKp.length) return;
+    const hl = highlightsStore[key] || {important: [], doubt: []};
+    if(!val && !allKp.length && !hl.important.length && !hl.doubt.length) return;
     anything = true;
     out += CHAPTER_TITLES[key] + "\n";
     if(allKp.length){
       out += "Key Points:\n";
       allKp.forEach(pt=>{ out += "  - " + pt + "\n"; });
+    }
+    if(hl.important.length){
+      out += "Marked important:\n";
+      hl.important.forEach(t=>{ out += '  - "' + t + '"\n'; });
+    }
+    if(hl.doubt.length){
+      out += "Had a doubt about:\n";
+      hl.doubt.forEach(t=>{ out += '  - "' + t + '"\n'; });
     }
     if(val){
       out += "My Notes:\n  " + val.replace(/\n/g, "\n  ") + "\n";
@@ -3379,6 +3607,20 @@ function buildTeachPanel(key, panel){
 /* Live call to the tutor. `fallbackAnswer` (optional) is only used if the
    live call fails, so a chip question still gets *something* useful even if
    the API isn't reachable yet. */
+/* Everything the tutor should "read" before answering: the full chapter —
+   article text, code blocks, tables, quotes, stat callouts — not just the
+   first paragraph block. Strips out the interactive bits (key points box,
+   the teach panel itself, the notes box, prev/next nav) so the tutor's own
+   UI chrome doesn't leak into its own context. */
+function getChapterContext(key){
+  const sheet = document.querySelector('#page-' + key + ' .sheet');
+  if(!sheet) return '';
+  const clone = sheet.cloneNode(true);
+  clone.querySelectorAll('.key-points-box, .teach-toggle, .teach-panel, .learn-box, .footer-nav')
+    .forEach(el => el.remove());
+  return clone.innerText.replace(/\n{3,}/g, '\n\n').trim();
+}
+
 async function sendToTutor(key, question, panel, fallbackAnswer){
   const askBox = panel.querySelector('.ask-box');
   panel.querySelectorAll('.chip-btn, .ask-box button, .ask-box input').forEach(el=> el.disabled = true);
@@ -3400,8 +3642,7 @@ async function sendToTutor(key, question, panel, fallbackAnswer){
   panel.insertBefore(thinkRow, askBox);
   thinkRow.scrollIntoView({behavior:'smooth', block:'nearest'});
 
-  const articleEl = document.querySelector('#page-' + key + ' .article-text');
-  const articleText = articleEl ? articleEl.innerText : '';
+  const articleText = getChapterContext(key);
   const chapterTitle = (CHAPTER_TITLES[key] || key);
 
   let reply = null;
@@ -3466,6 +3707,116 @@ async function sendToTutor(key, question, panel, fallbackAnswer){
 
   panel.querySelectorAll('.chip-btn, .ask-box button, .ask-box input').forEach(el=> el.disabled = false);
   teacherRow.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ---------- Selection toolbar: highlight lines, or look up a term ---------- */
+/* Session-only, like notesStore/keyPointsStore — mirrored into the journal
+   page and included in "Export my notes". */
+const highlightsStore = {}; // { [chapterId]: { important: [text,...], doubt: [text,...] } }
+
+let pendingRange = null;
+let pendingChapterKey = null;
+
+const CONTENT_SELECTOR = '.article-text, .code-block, .quote-block, .stat-callout, .data-table';
+
+document.addEventListener('mouseup', handleTextSelection);
+document.addEventListener('touchend', handleTextSelection);
+document.addEventListener('mousedown', (e)=>{
+  const toolbar = document.getElementById('selection-toolbar');
+  if(!toolbar.contains(e.target)) toolbar.classList.remove('open');
+});
+
+function handleTextSelection(e){
+  const toolbar = document.getElementById('selection-toolbar');
+  if(toolbar.contains(e.target)) return; // don't fight clicks on the toolbar itself
+  setTimeout(()=>{
+    const sel = window.getSelection();
+    if(!sel || sel.isCollapsed || sel.rangeCount === 0){
+      toolbar.classList.remove('open');
+      return;
+    }
+    const text = sel.toString().trim();
+    if(!text){ toolbar.classList.remove('open'); return; }
+
+    const anchor = sel.anchorNode ? (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement) : null;
+    const contentEl = anchor ? anchor.closest(CONTENT_SELECTOR) : null;
+    const pageEl = anchor ? anchor.closest('.page') : null;
+    if(!contentEl || !pageEl){ toolbar.classList.remove('open'); return; }
+
+    pendingRange = sel.getRangeAt(0).cloneRange();
+    pendingChapterKey = pageEl.id.replace(/^page-/, '');
+
+    const rect = pendingRange.getBoundingClientRect();
+    const estWidth = Math.min(320, window.innerWidth - 16);
+    const idealLeft = window.scrollX + rect.left + rect.width/2 - estWidth/2;
+    const maxLeft = window.scrollX + window.innerWidth - estWidth - 8;
+    toolbar.style.top = (window.scrollY + rect.top - 46) + 'px';
+    toolbar.style.left = Math.max(window.scrollX + 8, Math.min(idealLeft, maxLeft)) + 'px';
+    toolbar.classList.add('open');
+  }, 0);
+}
+
+function wrapPendingRange(className){
+  if(!pendingRange) return false;
+  try{
+    const mark = document.createElement('mark');
+    mark.className = className;
+    pendingRange.surroundContents(mark);
+    return true;
+  }catch(err){
+    return false; // selection crossed multiple elements — text still gets saved, just not visually wrapped
+  }
+}
+
+function markSelection(type){
+  if(!pendingRange || !pendingChapterKey) return;
+  const text = pendingRange.toString().trim();
+  if(!text) return;
+  const key = pendingChapterKey;
+  const className = type === 'important' ? 'hl-important' : 'hl-doubt';
+
+  wrapPendingRange(className);
+
+  if(!highlightsStore[key]) highlightsStore[key] = {important: [], doubt: []};
+  highlightsStore[key][type].push(text);
+
+  document.getElementById('selection-toolbar').classList.remove('open');
+  window.getSelection().removeAllRanges();
+
+  if(type === 'doubt'){
+    openTeachAndAsk(key, `I'm not sure I understand this part: "${text}" — can you help me understand it?`);
+  }
+}
+
+function askTutorAboutSelection(){
+  if(!pendingRange || !pendingChapterKey) return;
+  const text = pendingRange.toString().trim();
+  if(!text) return;
+  const key = pendingChapterKey;
+  document.getElementById('selection-toolbar').classList.remove('open');
+  window.getSelection().removeAllRanges();
+  openTeachAndAsk(key, `What does "${text}" mean?`);
+}
+
+function googleSelection(){
+  if(!pendingRange) return;
+  const text = pendingRange.toString().trim();
+  if(!text) return;
+  document.getElementById('selection-toolbar').classList.remove('open');
+  window.getSelection().removeAllRanges();
+  window.open('https://www.google.com/search?q=' + encodeURIComponent('define ' + text), '_blank', 'noopener');
+}
+
+/* Opens (or reuses) the Teach Me panel for a chapter and asks it a question,
+   as if the reader had typed it into the ask box themselves. */
+function openTeachAndAsk(key, question){
+  const panel = document.getElementById('teach-' + key);
+  if(!panel) return;
+  if(!panel.classList.contains('open')){
+    toggleTeach(key);
+  }
+  panel.scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(()=> sendToTutor(key, question, panel), 250);
 }
 
 injectKeyPoints();
