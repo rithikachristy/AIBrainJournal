@@ -351,6 +351,226 @@
     font-size:0.95rem;
   }
 
+  /* ---- Guitar: photo gallery ---- */
+  .photo-gallery{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:14px 0 20px 0;
+  }
+  .photo-gallery img{
+    max-width:220px;
+    max-height:220px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    box-shadow: var(--shadow);
+    object-fit:cover;
+  }
+  .photo-gallery .photo-empty{
+    border:1.5px dashed var(--line);
+    border-radius:10px;
+    padding:22px 18px;
+    color: var(--ink-soft);
+    font-size:0.9rem;
+    max-width:420px;
+  }
+
+  /* ---- Guitar: type-your-own Chords-over-Lyrics tool ----
+     Deliberately its own visual identity (not the parchment/serif theme) so it
+     reads as a distinct little instrument built into the journal. The lyric text
+     is never pre-filled by Claude — only what the reader types is rendered. */
+  .chordlyr-tool{
+    background: #1E2430;
+    color: #F1EFE6;
+    border-radius: 14px;
+    padding: 20px 22px 22px 22px;
+    margin: 16px 0 24px 0;
+    font-family: var(--font-body);
+  }
+  .chordlyr-tool .clt-label{
+    font-family: var(--font-mono);
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:#8FD6C4;
+    margin-bottom:10px;
+  }
+  .chordlyr-tool .clt-hint{
+    font-size:0.85rem;
+    color:#B7BFCE;
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .chordpro-input{
+    width:100%;
+    min-height:110px;
+    background:#141821;
+    color:#F1EFE6;
+    border:1px solid #3A4356;
+    border-radius:8px;
+    padding:12px 14px;
+    font-family: var(--font-mono);
+    font-size:0.88rem;
+    line-height:1.6;
+    resize:vertical;
+  }
+  .clt-actions{
+    display:flex;
+    gap:10px;
+    margin:12px 0 4px 0;
+    flex-wrap:wrap;
+  }
+  .clt-btn{
+    background:#8FD6C4;
+    color:#10231D;
+    border:none;
+    border-radius:20px;
+    padding:8px 16px;
+    font-weight:700;
+    font-size:0.82rem;
+    cursor:pointer;
+  }
+  .clt-btn.secondary{
+    background:transparent;
+    color:#8FD6C4;
+    border:1px solid #8FD6C4;
+  }
+  .clt-status{
+    font-size:0.78rem;
+    color:#8FD6C4;
+    margin-left:4px;
+  }
+  .chord-render{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px dashed #3A4356;
+  }
+  .chord-render:empty{ display:none; }
+  .cr-line{
+    display:flex;
+    flex-wrap:wrap;
+    row-gap:22px;
+    margin-bottom:10px;
+    line-height:1.3;
+  }
+  .cr-word{
+    position:relative;
+    padding-top:20px;
+    margin-right:6px;
+    white-space:pre;
+    font-size:1.02rem;
+  }
+  .cr-word .cr-chord{
+    position:absolute;
+    top:-2px;
+    left:0;
+    font-family: var(--font-mono);
+    font-weight:800;
+    font-size:0.78rem;
+    color:#10231D;
+    background:#F2C879;
+    border-radius:5px;
+    padding:1px 6px;
+    letter-spacing:0.02em;
+  }
+
+  /* ---- Guitar: badge row, visual chord diagrams, strum arrows, sections ---- */
+  .badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:14px 0 20px 0;
+  }
+  .badge-pill{
+    background: rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.22);
+    border-radius: var(--radius-pill);
+    padding:7px 14px;
+    font-size:0.82rem;
+    color: var(--ink);
+  }
+  .badge-pill strong{ color: var(--accent); font-weight:700; }
+
+  .chord-diagram-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    margin:14px 0 22px 0;
+  }
+  .chord-diagram-card{
+    background: rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:14px;
+    padding:14px 16px 12px 16px;
+    width:118px;
+    text-align:center;
+  }
+  .chord-diagram-card .cdc-name{
+    font-family: var(--font-heading);
+    font-weight:700;
+    font-size:1.05rem;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .chord-svg{ width:100%; height:auto; }
+
+  .strum-card{
+    background: rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:14px;
+    padding:16px 20px;
+    margin:14px 0 22px 0;
+  }
+  .strum-card .sc-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color: var(--spark);
+    margin-bottom:12px;
+  }
+  .strum-row{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .strum-beat{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+  }
+  .strum-beat .arrow{
+    font-size:1.5rem;
+    color:#8FD6C4;
+  }
+  .strum-beat .cnt{
+    font-size:0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .song-sections-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin:14px 0 22px 0;
+  }
+  .song-sections-list .ssl-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background: rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:10px;
+    padding:9px 14px;
+    font-size:0.88rem;
+    color: var(--ink);
+  }
+  .song-sections-list .ssl-dot{
+    width:9px; height:9px; border-radius:50%;
+    background: var(--spark-fill);
+    flex-shrink:0;
+  }
+
   /* Main content */
   .main{
     flex:1;
@@ -852,6 +1072,99 @@
     .selection-toolbar{ flex-wrap:wrap; max-width:88vw; justify-content:center; }
     .selection-toolbar button{ font-size:0.72rem; padding:7px 8px; }
   }
+
+  /* ===================== GLASS EDITION SKIN =====================
+     "Rithika Christy's Book — Glass edition": frosted glass panels over a
+     living violet→blue→pink gradient. Same brand tokens underneath (accent
+     colors, wordmark rule, typography) — this is one stylised skin on top,
+     per the brand's own glass-edition brief. Rules below intentionally come
+     last in the sheet so they win the cascade without rewriting every
+     component above. */
+  html, body{
+    background: linear-gradient(135deg, #34266E 0%, #4A48AE 28%, #6B62D9 52%, #9A63CE 74%, #E85DA0 100%);
+    background-attachment: fixed;
+  }
+
+  /* Full dark-glass flip: --ink/--ink-soft/--line/--surface/--chip/--accent*
+     drive almost every text and border color across the site, so redefining
+     them here turns the whole journal into dark frosted glass with light
+     text (matching the reference: dark violet panels, white/lavender type),
+     not just the outer shell. */
+  :root{
+    --ink:#F1ECFB;
+    --ink-soft:#C7BCE8;
+    --line: rgba(255,255,255,0.16);
+    --surface: rgba(255,255,255,0.07);
+    --chip: rgba(255,255,255,0.12);
+    --accent:#B79CF0;
+    --on-accent:#1C1240;
+    --accent-2:#F0B15A;
+    --accent-2-fill:#F0B15A;
+    --on-accent-2:#1C1240;
+    --spark:#F783B4;
+    --spark-fill:#EC4899;
+    --on-spark:#1C1240;
+  }
+
+  .sidebar{
+    background: rgba(15,10,36,0.68);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-right: 1px solid rgba(255,255,255,0.14);
+  }
+  .nav-btn{ color:#ECE6FB; }
+  .nav-btn:hover{ background: rgba(255,255,255,0.12); }
+  .nav-btn.active{ background: rgba(255,255,255,0.16); color:#fff; }
+  .nav-btn.lesson-btn{ color:#C9BEEA; }
+  .nav-group-label{ color:#AE9FE6; }
+  .sidebar .byline{ color:#BAAEDE; }
+
+  .sheet{
+    background: rgba(24,17,52,0.68);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow: 0 10px 36px rgba(10,5,30,0.4);
+  }
+
+  .bookshelf{ border-bottom:none; }
+  .bookshelf::after{
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 18px rgba(10,5,30,0.35);
+  }
+
+  .chapter-row{ background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.09)); border: 1px solid rgba(255,255,255,0.14); }
+  .chapter-row:hover{ background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.14)); }
+  .stat-callout{ background: rgba(255,255,255,0.06); }
+  .teach-panel{ background: rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.2); }
+  .bubble.teacher{ background:#F3EEFF; color:#241F19; border:1px solid rgba(255,255,255,0.3); }
+  .bubble.teacher .tag{ color:#6B3FA8; }
+  .chip-btn{ background: rgba(255,255,255,0.9); color:#241F19; border:1px solid rgba(255,255,255,0.5); }
+  .chip-btn:hover{ background:#fff; }
+  .key-points-box{ background: rgba(255,255,255,0.06); }
+  .quote-block{ background: rgba(255,255,255,0.05); }
+  .data-table th{ background: rgba(255,255,255,0.1); }
+  .data-table tr:nth-child(even) td{ background: rgba(255,255,255,0.04); }
+  .data-table th, .data-table td{ border-color: rgba(255,255,255,0.14); }
+  textarea.journal-input{ background: rgba(255,255,255,0.06); color: var(--ink); border-color: rgba(255,255,255,0.2); }
+  .lib-card{ background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+  .code-block{ background: rgba(10,6,26,0.55); color:#EAE3FB; }
+  .code-block .code-label{ color:#B7A6E8; }
+  .persist-note{ background: rgba(236,72,153,0.14); border-color: rgba(236,72,153,0.35); color:#F8E3EF; }
+  .journal-entry{ border-color: rgba(255,255,255,0.16); }
+
+  .teach-toggle{ background: linear-gradient(120deg, var(--spark-fill), #C2467F); color:#fff; }
+  .save-btn{ background: linear-gradient(120deg, var(--accent), #4B2E83); color:#fff; }
+  .clt-btn{ color:#10231D; }
+
+  /* Book spines + chapter-number badges recolored into the same violet→pink
+     family as the gradient/skin, instead of the old warm-library brown/navy. */
+  .book--amber{ background: linear-gradient(160deg, #9B6FE0, #6B3FA8); }   /* Agentic AI & LLM Engineering */
+  .book--teal{ background: linear-gradient(160deg, #6F5AC4, #4A2E8C); }   /* AI in the Real World: Case Studies */
+  .book--plum{ background: linear-gradient(160deg, #8B84E8, #5850B0); }   /* Web & Backend Concepts */
+  .book--slate{ background: linear-gradient(160deg, #E87BAE, #C2467F); }  /* Guitar */
 </style>
 </head>
 <body>
@@ -880,9 +1193,14 @@
     <button class="nav-btn lesson-btn" data-page="aap__cover">↳ Stop Prompting, Start Designing</button>
     <button class="nav-btn lesson-btn" data-page="maa__cover">↳ Multi-Agent Architecture Patterns</button>
     <button class="nav-btn lesson-btn" data-page="adk__cover">↳ Multi-Agent Patterns in ADK</button>
+    <button class="nav-btn lesson-btn" data-page="tok__cover">↳ The Tokenomics Equation</button>
     <button class="nav-btn book-btn" data-page="book__ai-cases">📊 AI in the Real World: Case Studies</button>
     <button class="nav-btn lesson-btn" data-page="ds004__cover">↳ From Clinic to Super-Speciality</button>
     <button class="nav-btn lesson-btn" data-page="ds005__cover">↳ The AI-Enabled Service Agent</button>
+    <button class="nav-btn book-btn" data-page="book__webdev">🔌 Web &amp; Backend Concepts</button>
+    <button class="nav-btn lesson-btn" data-page="wh__cover">↳ Webhooks</button>
+    <button class="nav-btn book-btn" data-page="book__guitar">🎸 Guitar</button>
+    <button class="nav-btn lesson-btn" data-page="gtr__lord-i-need-you">↳ Lord I Need You</button>
 
     <div class="nav-group-label">Journal</div>
     <button class="nav-btn" data-page="learnings">📝 My Learnings</button>
@@ -901,13 +1219,25 @@
             <span class="book-spine-hl"></span>
             <div class="book-icon">🤖</div>
             <div class="book-title">Agentic AI &amp; LLM Engineering</div>
-            <div class="book-meta">3 lessons</div>
+            <div class="book-meta">4 lessons</div>
           </div>
           <div class="book book--teal" onclick="goPage('book__ai-cases')">
             <span class="book-spine-hl"></span>
             <div class="book-icon">📊</div>
             <div class="book-title">AI in the Real World: Case Studies</div>
             <div class="book-meta">2 lessons</div>
+          </div>
+          <div class="book book--plum" onclick="goPage('book__webdev')">
+            <span class="book-spine-hl"></span>
+            <div class="book-icon">🔌</div>
+            <div class="book-title">Web &amp; Backend Concepts</div>
+            <div class="book-meta">1 lesson</div>
+          </div>
+          <div class="book book--slate" onclick="goPage('book__guitar')">
+            <span class="book-spine-hl"></span>
+            <div class="book-icon">🎸</div>
+            <div class="book-title">Guitar</div>
+            <div class="book-meta">1 lesson</div>
           </div>
         </div>
       </div>
@@ -919,7 +1249,7 @@
         <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › AI in the Real World: Case Studies</div>
         <h1>📊 AI in the Real World: Case Studies</h1>
         <div class="sub">Business case studies on adopting AI in real organizations — strategy, ROI, ethics, and people, not code.</div>
-        <div class="chapter-list" style="--chapter-accent:#1B3A5C;">
+        <div class="chapter-list" style="--chapter-accent:#4A2E8C;">
           <div class="chapter-row" onclick="goPage('ds004__cover')">
             <div class="chapter-num">1</div>
             <div class="chapter-body">
@@ -948,7 +1278,7 @@
         <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › Agentic AI &amp; LLM Engineering</div>
         <h1>🤖 Agentic AI &amp; LLM Engineering</h1>
         <div class="sub">Design patterns and practical techniques for building LLM-based agents.</div>
-        <div class="chapter-list" style="--chapter-accent:#8A6224;">
+        <div class="chapter-list" style="--chapter-accent:#8A4FBF;">
           <div class="chapter-row" onclick="goPage('aap__cover')">
             <div class="chapter-num">1</div>
             <div class="chapter-body">
@@ -973,6 +1303,15 @@
               <div class="chapter-row-title">Developer's Guide to Multi-Agent Patterns in ADK</div>
               <div class="chapter-meta">8 patterns · Sequential, Coordinator, Parallel, Hierarchical, Generator/Critic, Iterative, Human-in-Loop, Composite</div>
               <div class="chapter-desc">Production-grade multi-agent design patterns with real pseudocode, using Google's Agent Development Kit.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('tok__cover')">
+            <div class="chapter-num">4</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">The Tokenomics Equation</div>
+              <div class="chapter-meta">Gateways · Model selection · Cost-per-token economics</div>
+              <div class="chapter-desc">Why LLM cost behaves nothing like flat-fee SaaS, and how gateways + model selection keep it under control at scale.</div>
             </div>
             <div class="chapter-arrow">→</div>
           </div>
@@ -2151,6 +2490,190 @@ workflow = SequentialAgent(sub_agents=[transaction_agent, approval_agent])</pre>
       </div>
     </section>
 
+    <!-- ===================== LESSON: The Tokenomics Equation ===================== -->
+
+    <!-- TOK LESSON COVER -->
+    <section class="page" id="page-tok__cover">
+      <div class="sheet cover-page">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__aap-llm')">Agentic AI &amp; LLM Engineering</a> › The Tokenomics Equation</div>
+        <h1>💰 The Tokenomics Equation</h1>
+        <div class="sub">Lesson 4 · Why LLM costs behave nothing like a flat-fee SaaS bill, and how gateways and model choice keep spend under control.</div>
+        <p style="line-height:1.7;">Added from an AT&amp;T engineering blog post on the economics of running LLMs in production. Summarized here in my own words rather than reproduced verbatim, since it was fetched from a link rather than pasted directly.</p>
+        <div class="chapter-list" style="--chapter-accent:#8A4FBF;">
+          <div class="chapter-row" onclick="goPage('tok__intro')">
+            <div class="chapter-num">1</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Tokens are the real unit of cost</div>
+              <div class="chapter-desc">Why LLM pricing scales with usage and context length instead of being a flat monthly fee.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('tok__gateway')">
+            <div class="chapter-num">2</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">The AI gateway pattern</div>
+              <div class="chapter-desc">A central proxy that meters, caches, rate-limits, and routes every LLM call.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('tok__models')">
+            <div class="chapter-num">3</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Model selection is a cost lever</div>
+              <div class="chapter-desc">Matching model size/capability to task difficulty instead of using one frontier model for everything.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('tok__wrap')">
+            <div class="chapter-num">4</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Wrap-up</div>
+              <div class="chapter-desc">Treat token spend like a managed cloud resource, not an afterthought.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOK: INTRO -->
+    <section class="page" id="page-tok__intro">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__aap-llm')">Agentic AI &amp; LLM Engineering</a> › <a onclick="goPage('tok__cover')">The Tokenomics Equation</a></div>
+        <div class="chapter-kicker">1 of 4</div>
+        <h2 class="chapter-title">Tokens are the real unit of cost</h2>
+        <div class="article-text">
+          <p>Most software has predictable cost: a flat license fee, or a per-seat subscription. LLM APIs don't work that way — you're billed per token, counting both what you send in (the prompt, plus any context/history/tool results) and what the model sends back.</p>
+          <p>That has a few consequences that are easy to miss until a bill arrives:</p>
+          <ul>
+            <li>A longer conversation history or a bigger retrieved-document context costs more per call, even if the actual question is short.</li>
+            <li>Verbose prompting habits (over-explaining, repeating instructions, dumping raw logs into context) directly inflate spend.</li>
+            <li>Cost scales with usage in a way a fixed-fee tool never did — a feature that works fine in a demo can get expensive fast once it's used by thousands of people.</li>
+          </ul>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('tok__intro')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-tok__intro"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-tok__intro" placeholder="e.g. This explains why our AI features need usage monitoring, not just a feature flag..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('tok__intro')">Save to this session</button>
+            <span class="save-status" id="status-tok__intro"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('tok__cover')">← Cover</button>
+          <button onclick="goPage('tok__gateway')">Next: The AI Gateway Pattern →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOK: GATEWAY -->
+    <section class="page" id="page-tok__gateway">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__aap-llm')">Agentic AI &amp; LLM Engineering</a> › <a onclick="goPage('tok__cover')">The Tokenomics Equation</a></div>
+        <div class="chapter-kicker">2 of 4</div>
+        <h2 class="chapter-title">The AI gateway pattern</h2>
+        <div class="article-text">
+          <p>Once multiple teams/features are all calling LLMs directly, cost and usage become invisible until the invoice arrives. The fix is to put a gateway (a lightweight proxy service) in front of every LLM call instead of letting each app call the provider directly.</p>
+          <p>A gateway typically handles:</p>
+          <ul>
+            <li><strong>Metering</strong> — logging tokens in/out per team, feature, or user, so cost is visible before it's a surprise.</li>
+            <li><strong>Caching</strong> — returning a cached answer for a repeated/near-identical prompt instead of paying for the same call twice.</li>
+            <li><strong>Rate limiting</strong> — capping how much any one feature or user can spend, protecting against runaway loops or abuse.</li>
+            <li><strong>Routing</strong> — picking which underlying model actually serves a given request (see next chapter).</li>
+          </ul>
+          <p>This mirrors how cloud spend got tamed with centralized billing dashboards and quotas — the gateway is that same discipline applied to LLM calls specifically.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('tok__gateway')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-tok__gateway"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-tok__gateway" placeholder="e.g. This is basically an API gateway, just metering tokens instead of requests..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('tok__gateway')">Save to this session</button>
+            <span class="save-status" id="status-tok__gateway"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('tok__intro')">← Tokens are the real unit of cost</button>
+          <button onclick="goPage('tok__models')">Next: Model Selection →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOK: MODELS -->
+    <section class="page" id="page-tok__models">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__aap-llm')">Agentic AI &amp; LLM Engineering</a> › <a onclick="goPage('tok__cover')">The Tokenomics Equation</a></div>
+        <div class="chapter-kicker">3 of 4</div>
+        <h2 class="chapter-title">Model selection is a cost lever</h2>
+        <div class="article-text">
+          <p>Not every task needs the most powerful (and most expensive) model available. A frontier model might get a hard reasoning task right on the first try, while a smaller/cheaper model gets a simple classification or extraction task right just as reliably, for a fraction of the per-token cost.</p>
+          <p>"Tokenomics" in this sense means treating model choice as a portfolio decision rather than a single default:</p>
+          <ul>
+            <li>Route simple, high-volume, low-risk requests (FAQ-style lookups, formatting, tagging) to a cheaper/smaller model.</li>
+            <li>Reserve the expensive frontier model for genuinely hard reasoning, ambiguous intent, or high-stakes output.</li>
+            <li>Watch for the hidden cost of a cheap model that needs more retries or more corrective context — sometimes the "expensive" model is cheaper in practice once retries are counted.</li>
+          </ul>
+          <p>This is the same logic a gateway (previous chapter) can automate: route each request to the cheapest model that can reliably do that specific job.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('tok__models')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-tok__models"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-tok__models" placeholder="e.g. We should try routing simple UI copy tasks to a cheaper model..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('tok__models')">Save to this session</button>
+            <span class="save-status" id="status-tok__models"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('tok__gateway')">← The AI Gateway Pattern</button>
+          <button onclick="goPage('tok__wrap')">Next: Wrap-up →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOK: WRAP -->
+    <section class="page" id="page-tok__wrap">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__aap-llm')">Agentic AI &amp; LLM Engineering</a> › <a onclick="goPage('tok__cover')">The Tokenomics Equation</a></div>
+        <div class="chapter-kicker">4 of 4</div>
+        <h2 class="chapter-title">Wrap-up</h2>
+        <div class="article-text">
+          <p>The core idea across this lesson: LLM spend is a variable, usage-driven cost — closer to cloud compute than to a software license — so it needs the same discipline cloud spend eventually got: visibility (metering), guardrails (rate limits, caching), and matching the tool to the job (model selection) rather than defaulting to the biggest model for everything.</p>
+          <p>Left unmanaged, token spend scales silently with adoption and can blow past budget expectations exactly when a feature is succeeding and usage is growing — which is the worst time to discover it.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('tok__wrap')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-tok__wrap"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-tok__wrap" placeholder="e.g. Overall takeaway for me..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('tok__wrap')">Save to this session</button>
+            <span class="save-status" id="status-tok__wrap"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('tok__models')">← Model Selection</button>
+          <button onclick="goPage('book__aap-llm')">🤖 Back to Book →</button>
+        </div>
+      </div>
+    </section>
+
 
     <!-- ===================== LESSON: DS-004 From Clinic to Super-Speciality ===================== -->
 
@@ -2744,6 +3267,367 @@ workflow = SequentialAgent(sub_agents=[transaction_agent, approval_agent])</pre>
       </div>
     </section>
 
+    <!-- ===================== BOOK: Web & Backend Concepts ===================== -->
+
+    <section class="page" id="page-book__webdev">
+      <div class="sheet cover-page">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › Web &amp; Backend Concepts</div>
+        <h1>🔌 Web &amp; Backend Concepts</h1>
+        <div class="sub">Backend/networking fundamentals as I run into them — not agent-specific, just the plumbing everything else sits on.</div>
+        <div class="chapter-list" style="--chapter-accent:#6B62D9;">
+          <div class="chapter-row" onclick="goPage('wh__cover')">
+            <div class="chapter-num">1</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Webhooks</div>
+              <div class="chapter-meta">Event-driven callbacks · Push vs. pull</div>
+              <div class="chapter-desc">How a server can notify your app the instant something happens, instead of your app constantly asking "anything new yet?"</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LESSON: Webhooks ===================== -->
+
+    <!-- WH LESSON COVER -->
+    <section class="page" id="page-wh__cover">
+      <div class="sheet cover-page">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__webdev')">Web &amp; Backend Concepts</a> › Webhooks</div>
+        <h1>🔌 Webhooks</h1>
+        <div class="sub">Added from a GeeksforGeeks article on webhooks. Summarized here in my own words rather than reproduced verbatim, since it was fetched from a link rather than pasted directly.</div>
+        <div class="chapter-list" style="--chapter-accent:#6B62D9;">
+          <div class="chapter-row" onclick="goPage('wh__intro')">
+            <div class="chapter-num">1</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">What is a webhook?</div>
+              <div class="chapter-desc">A "reverse API" — the server calls you, instead of you calling it.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('wh__workflow')">
+            <div class="chapter-num">2</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">How the workflow actually runs</div>
+              <div class="chapter-desc">Event → payload → POST to your endpoint → you acknowledge it.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('wh__vsapi')">
+            <div class="chapter-num">3</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Webhooks vs. traditional APIs</div>
+              <div class="chapter-desc">Push vs. pull, and why polling wastes both time and requests.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('wh__examples')">
+            <div class="chapter-num">4</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Real-world examples</div>
+              <div class="chapter-desc">Payments, GitHub, Slack/CRM integrations, delivery tracking.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+          <div class="chapter-row" onclick="goPage('wh__wrap')">
+            <div class="chapter-num">5</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Wrap-up</div>
+              <div class="chapter-desc">The trade-off: a bit more setup, in exchange for near-instant updates.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WH: INTRO -->
+    <section class="page" id="page-wh__intro">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__webdev')">Web &amp; Backend Concepts</a> › <a onclick="goPage('wh__cover')">Webhooks</a></div>
+        <div class="chapter-kicker">1 of 5</div>
+        <h2 class="chapter-title">What is a webhook?</h2>
+        <div class="article-text">
+          <p>A webhook is sometimes called a "reverse API." With a normal API, your app has to ask a server "has anything changed?" — over and over, on a timer. With a webhook, you register a URL with the server once, and the server calls that URL automatically the instant something relevant happens on its side.</p>
+          <p>So instead of your app polling for updates, updates come to your app — pushed, not pulled.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('wh__intro')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-wh__intro"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-wh__intro" placeholder="e.g. This is like a doorbell instead of me checking the door every 5 minutes..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('wh__intro')">Save to this session</button>
+            <span class="save-status" id="status-wh__intro"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('wh__cover')">← Cover</button>
+          <button onclick="goPage('wh__workflow')">Next: How the Workflow Runs →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WH: WORKFLOW -->
+    <section class="page" id="page-wh__workflow">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__webdev')">Web &amp; Backend Concepts</a> › <a onclick="goPage('wh__cover')">Webhooks</a></div>
+        <div class="chapter-kicker">2 of 5</div>
+        <h2 class="chapter-title">How the workflow actually runs</h2>
+        <div class="article-text">
+          <ol>
+            <li><strong>Registration:</strong> you give the source system a URL (your "endpoint") ahead of time, saying "send events here."</li>
+            <li><strong>Event occurs:</strong> something happens on the source system's side — a payment clears, a commit is pushed, a form is submitted.</li>
+            <li><strong>Payload built:</strong> the source system packages the event's details as structured data, almost always JSON.</li>
+            <li><strong>HTTP POST sent:</strong> that payload is sent as an HTTP POST request straight to your registered endpoint.</li>
+            <li><strong>Your server processes it:</strong> your endpoint reads the payload and does whatever it needs to (update a record, trigger a notification, kick off another workflow).</li>
+            <li><strong>Acknowledgement:</strong> your endpoint responds with a 200 OK to confirm receipt — if it doesn't, most providers will retry the delivery.</li>
+          </ol>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('wh__workflow')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-wh__workflow"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-wh__workflow" placeholder="e.g. The 200 OK / retry part matters for reliability..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('wh__workflow')">Save to this session</button>
+            <span class="save-status" id="status-wh__workflow"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('wh__intro')">← What is a Webhook?</button>
+          <button onclick="goPage('wh__vsapi')">Next: Webhooks vs. APIs →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WH: VS API -->
+    <section class="page" id="page-wh__vsapi">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__webdev')">Web &amp; Backend Concepts</a> › <a onclick="goPage('wh__cover')">Webhooks</a></div>
+        <div class="chapter-kicker">3 of 5</div>
+        <h2 class="chapter-title">Webhooks vs. traditional APIs</h2>
+        <div class="article-text">
+          <p>A traditional API call is <strong>pull-based</strong>: your app decides when to ask, and the server answers on demand, whether or not anything has actually changed. To catch an update quickly this way, your app has to poll repeatedly (every few seconds or minutes) — most of those calls come back saying "nothing new."</p>
+          <p>A webhook is <strong>push-based</strong>: the server only contacts you when there's actually something to report. That means:</p>
+          <ul>
+            <li>Far fewer wasted requests than polling.</li>
+            <li>Near-real-time updates, since you're notified the moment the event happens rather than on your next poll cycle.</li>
+            <li>Less load on both sides — the server isn't fielding constant "anything new?" checks, and your app isn't burning cycles asking.</li>
+          </ul>
+          <p>The trade-off is that your app needs a publicly reachable endpoint and has to handle incoming requests securely (see the security note in the next chapter's examples) — a bit more setup than simply calling an API when you feel like it.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('wh__vsapi')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-wh__vsapi"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-wh__vsapi" placeholder="e.g. Push vs pull is the one-line way to remember this..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('wh__vsapi')">Save to this session</button>
+            <span class="save-status" id="status-wh__vsapi"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('wh__workflow')">← How the Workflow Runs</button>
+          <button onclick="goPage('wh__examples')">Next: Real-World Examples →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WH: EXAMPLES -->
+    <section class="page" id="page-wh__examples">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__webdev')">Web &amp; Backend Concepts</a> › <a onclick="goPage('wh__cover')">Webhooks</a></div>
+        <div class="chapter-kicker">4 of 5</div>
+        <h2 class="chapter-title">Real-world examples</h2>
+        <div class="article-text">
+          <ul>
+            <li><strong>Payment gateways</strong> notify your app the moment a payment succeeds or fails, so you can update an order's status instantly instead of polling the payment provider.</li>
+            <li><strong>GitHub</strong> can call a webhook whenever a commit is pushed or a pull request is opened — the basis for most CI/CD triggers.</li>
+            <li><strong>Slack / CRM integrations</strong> push new messages or lead updates into other tools the instant they happen.</li>
+            <li><strong>Shipping carriers</strong> push delivery-status changes (picked up, out for delivery, delivered) rather than making you refresh a tracking page.</li>
+          </ul>
+          <p>One security note worth remembering across all of these: since a webhook endpoint is a public URL that accepts POST requests, it should verify the request actually came from the expected source (usually via a signature check) rather than blindly trusting whatever hits that URL.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('wh__examples')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-wh__examples"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-wh__examples" placeholder="e.g. Signature verification is the part I'd forget..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('wh__examples')">Save to this session</button>
+            <span class="save-status" id="status-wh__examples"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('wh__vsapi')">← Webhooks vs. APIs</button>
+          <button onclick="goPage('wh__wrap')">Next: Wrap-up →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WH: WRAP -->
+    <section class="page" id="page-wh__wrap">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__webdev')">Web &amp; Backend Concepts</a> › <a onclick="goPage('wh__cover')">Webhooks</a></div>
+        <div class="chapter-kicker">5 of 5</div>
+        <h2 class="chapter-title">Wrap-up</h2>
+        <div class="article-text">
+          <p>The whole idea in one line: webhooks trade a little extra setup work (a public endpoint, signature verification) for the efficiency and near-instant responsiveness of push notifications instead of constant polling. Anywhere "how do I know when X happens" comes up, a webhook is usually the answer before reaching for a polling loop.</p>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('wh__wrap')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-wh__wrap"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-wh__wrap" placeholder="e.g. Overall takeaway for me..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('wh__wrap')">Save to this session</button>
+            <span class="save-status" id="status-wh__wrap"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('wh__examples')">← Real-World Examples</button>
+          <button onclick="goPage('book__webdev')">🔌 Back to Book →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BOOK: Guitar ===================== -->
+
+    <section class="page" id="page-book__guitar">
+      <div class="sheet cover-page">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › Guitar</div>
+        <h1>🎸 Guitar</h1>
+        <div class="sub">Chords and playing notes for the songs I'm learning — my own reference, not a music theory course.</div>
+        <div class="chapter-list" style="--chapter-accent:#D9518A;">
+          <div class="chapter-row" onclick="goPage('gtr__lord-i-need-you')">
+            <div class="chapter-num">1</div>
+            <div class="chapter-body">
+              <div class="chapter-row-title">Lord I Need You</div>
+              <div class="chapter-meta">Matt Maher · Absolute Beginner · Capo 3</div>
+              <div class="chapter-desc">Chord shapes, tuning, capo, and strumming pattern — chords only, no lyrics.</div>
+            </div>
+            <div class="chapter-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LESSON: Lord I Need You (Guitar) ===================== -->
+
+    <section class="page" id="page-gtr__lord-i-need-you">
+      <div class="sheet">
+        <div class="breadcrumb"><a onclick="goPage('home')">📚 Library</a> › <a onclick="goPage('book__guitar')">Guitar</a> › Lord I Need You</div>
+        <h2 class="chapter-title">Lord I Need You — Matt Maher</h2>
+        <div class="article-text">
+          <p><strong>Source:</strong> chords transcribed from the Ultimate Guitar chord chart for this song, from screenshots I pasted in myself. Chords/tuning/technique only — no lyrics, and not the lyric-interleaved chord chart itself, to stay on the right side of copyright regardless of source.</p>
+
+          <div class="badge-row">
+            <span class="badge-pill"><strong>Difficulty:</strong> Absolute Beginner</span>
+            <span class="badge-pill"><strong>Tuning:</strong> E A D G B E</span>
+            <span class="badge-pill"><strong>Capo:</strong> 3rd fret</span>
+            <span class="badge-pill"><strong>Key (sounding):</strong> Bb</span>
+          </div>
+
+          <h3 style="margin-top:1.5em;">Chords</h3>
+          <div class="chord-diagram-grid">
+            <div class="chord-diagram-card">
+              <div class="cdc-name">G</div>
+              <svg class="chord-svg" viewBox="0 0 100 128" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="20" x2="10" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="26" y1="20" x2="26" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="42" y1="20" x2="42" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="58" y1="20" x2="58" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="74" y1="20" x2="74" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="90" y1="20" x2="90" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="10" y1="20" x2="90" y2="20" stroke="#EDE6FB" stroke-width="3.2"/><line x1="10" y1="40" x2="90" y2="40" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="60" x2="90" y2="60" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="80" x2="90" y2="80" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="100" x2="90" y2="100" stroke="#EDE6FB" stroke-width="1.2"/><circle cx="42" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="58" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="74" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="10" cy="70.0" r="7.5" fill="#B79CF0"/><text x="10" y="73.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">2</text><circle cx="26" cy="50.0" r="7.5" fill="#B79CF0"/><text x="26" y="53.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">1</text><circle cx="90" cy="70.0" r="7.5" fill="#B79CF0"/><text x="90" y="73.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">3</text></svg>
+            </div>
+            <div class="chord-diagram-card">
+              <div class="cdc-name">C</div>
+              <svg class="chord-svg" viewBox="0 0 100 128" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="20" x2="10" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="26" y1="20" x2="26" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="42" y1="20" x2="42" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="58" y1="20" x2="58" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="74" y1="20" x2="74" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="90" y1="20" x2="90" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="10" y1="20" x2="90" y2="20" stroke="#EDE6FB" stroke-width="3.2"/><line x1="10" y1="40" x2="90" y2="40" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="60" x2="90" y2="60" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="80" x2="90" y2="80" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="100" x2="90" y2="100" stroke="#EDE6FB" stroke-width="1.2"/><text x="10" y="12" text-anchor="middle" font-size="11" fill="#F783B4" font-family="IBM Plex Mono, monospace">x</text><circle cx="58" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="90" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="26" cy="70.0" r="7.5" fill="#B79CF0"/><text x="26" y="73.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">3</text><circle cx="42" cy="50.0" r="7.5" fill="#B79CF0"/><text x="42" y="53.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">2</text><circle cx="74" cy="30.0" r="7.5" fill="#B79CF0"/><text x="74" y="33.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">1</text></svg>
+            </div>
+            <div class="chord-diagram-card">
+              <div class="cdc-name">Em</div>
+              <svg class="chord-svg" viewBox="0 0 100 128" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="20" x2="10" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="26" y1="20" x2="26" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="42" y1="20" x2="42" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="58" y1="20" x2="58" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="74" y1="20" x2="74" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="90" y1="20" x2="90" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="10" y1="20" x2="90" y2="20" stroke="#EDE6FB" stroke-width="3.2"/><line x1="10" y1="40" x2="90" y2="40" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="60" x2="90" y2="60" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="80" x2="90" y2="80" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="100" x2="90" y2="100" stroke="#EDE6FB" stroke-width="1.2"/><circle cx="10" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="58" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="74" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="90" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="26" cy="50.0" r="7.5" fill="#B79CF0"/><text x="26" y="53.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">1</text><circle cx="42" cy="50.0" r="7.5" fill="#B79CF0"/><text x="42" y="53.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">2</text></svg>
+            </div>
+            <div class="chord-diagram-card">
+              <div class="cdc-name">D</div>
+              <svg class="chord-svg" viewBox="0 0 100 128" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="20" x2="10" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="26" y1="20" x2="26" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="42" y1="20" x2="42" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="58" y1="20" x2="58" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="74" y1="20" x2="74" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="90" y1="20" x2="90" y2="100" stroke="#C9BEEA" stroke-width="1.4"/><line x1="10" y1="20" x2="90" y2="20" stroke="#EDE6FB" stroke-width="3.2"/><line x1="10" y1="40" x2="90" y2="40" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="60" x2="90" y2="60" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="80" x2="90" y2="80" stroke="#EDE6FB" stroke-width="1.2"/><line x1="10" y1="100" x2="90" y2="100" stroke="#EDE6FB" stroke-width="1.2"/><text x="10" y="12" text-anchor="middle" font-size="11" fill="#F783B4" font-family="IBM Plex Mono, monospace">x</text><text x="26" y="12" text-anchor="middle" font-size="11" fill="#F783B4" font-family="IBM Plex Mono, monospace">x</text><circle cx="42" cy="10" r="4.2" fill="none" stroke="#8FD6C4" stroke-width="1.6"/><circle cx="58" cy="50.0" r="7.5" fill="#B79CF0"/><text x="58" y="53.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">1</text><circle cx="74" cy="70.0" r="7.5" fill="#B79CF0"/><text x="74" y="73.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">3</text><circle cx="90" cy="50.0" r="7.5" fill="#B79CF0"/><text x="90" y="53.5" text-anchor="middle" font-size="9" fill="#1C1240" font-weight="700" font-family="Inter, sans-serif">2</text></svg>
+            </div>
+          </div>
+
+          <h3 style="margin-top:1.5em;">Strumming Pattern</h3>
+          <div class="strum-card">
+            <div class="sc-label">CHORUS · ~75 BPM</div>
+            <div class="strum-row">
+              <div class="strum-beat"><span class="arrow">↓</span><span class="cnt">1</span></div>
+              <div class="strum-beat"><span class="arrow">↓↑</span><span class="cnt">&amp;</span></div>
+              <div class="strum-beat"><span class="arrow">↓</span><span class="cnt">2</span></div>
+              <div class="strum-beat"><span class="arrow">↓↑</span><span class="cnt">&amp;</span></div>
+              <div class="strum-beat"><span class="arrow">↓</span><span class="cnt">3</span></div>
+              <div class="strum-beat"><span class="arrow">↓↑</span><span class="cnt">&amp;</span></div>
+              <div class="strum-beat"><span class="arrow">↓</span><span class="cnt">4</span></div>
+              <div class="strum-beat"><span class="arrow">↓↑</span><span class="cnt">&amp;</span></div>
+            </div>
+          </div>
+
+          <div class="quote-block">Note: the Intro/Verse strumming pattern wasn't fully legible in the screenshot I had (it was cropped), so I've left it out here rather than guess at it. If you get a clearer shot of that row, send it over and I'll fill it in properly.</div>
+
+          <h3 style="margin-top:1.5em;">Song Sections</h3>
+          <div class="song-sections-list">
+            <div class="ssl-row"><span class="ssl-dot"></span> Verse 1</div>
+            <div class="ssl-row"><span class="ssl-dot"></span> Chorus</div>
+            <div class="ssl-row"><span class="ssl-dot"></span> Verse 2</div>
+            <div class="ssl-row"><span class="ssl-dot"></span> Bridge</div>
+          </div>
+          <div class="quote-block">Section order matches the song's structure; the confirmed chord set (G, C, Em, D) and chorus strumming pattern above are locked in — a fresh section-by-section chord order hasn't been pulled from a chart screenshot yet.</div>
+
+          <h3 style="margin-top:1.8em;">📷 My photos for this song</h3>
+          <div class="photo-gallery" id="photos-gtr__lord-i-need-you">
+            <div class="photo-empty">No photos added yet. Send a chord-diagram photo, a capo/tuning shot, or your own handwritten notes and they'll go right here under the title — as images, exactly as sent.</div>
+          </div>
+
+          <h3 style="margin-top:1.8em;">🎼 Lyrics &amp; Chords — type your own</h3>
+          <div class="chordlyr-tool">
+            <div class="clt-label">Your Words, Your Chords</div>
+            <div class="clt-hint">Type your own lyric line(s) below, dropping a chord in square brackets right before the word it changes on — e.g. <code>[G]type your [C]words [Em]like [D]this</code>. Nothing here is pre-filled; only what you type gets rendered.</div>
+            <textarea class="chordpro-input" id="chordpro-input-gtr__lord-i-need-you" placeholder="[G]type your [C]words [Em]like [D]this"></textarea>
+            <div class="clt-actions">
+              <button class="clt-btn" onclick="renderChordPro('gtr__lord-i-need-you')">Render chords over lyrics</button>
+              <button class="clt-btn secondary" onclick="document.getElementById('chordpro-input-gtr__lord-i-need-you').value=''; renderChordPro('gtr__lord-i-need-you');">Clear</button>
+              <span class="clt-status" id="clt-status-gtr__lord-i-need-you"></span>
+            </div>
+            <div class="chord-render" id="chord-render-gtr__lord-i-need-you"></div>
+          </div>
+        </div>
+
+        <button class="teach-toggle" onclick="toggleTeach('gtr__lord-i-need-you')">🎓 Teach me this, simply</button>
+        <div class="teach-panel" id="teach-gtr__lord-i-need-you"></div>
+
+        <div class="learn-box">
+          <label>📝 My Learnings</label>
+          <textarea class="journal-input" id="notes-gtr__lord-i-need-you" placeholder="e.g. The G-to-C transition is the one I need to drill..."></textarea>
+          <div class="save-row">
+            <button class="save-btn" onclick="saveNote('gtr__lord-i-need-you')">Save to this session</button>
+            <span class="save-status" id="status-gtr__lord-i-need-you"></span>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <button onclick="goPage('book__guitar')">🎸 Back to Book →</button>
+        </div>
+      </div>
+    </section>
+
+
     <!-- LEARNINGS / JOURNAL -->
     <section class="page" id="page-learnings">
       <div class="sheet">
@@ -2815,6 +3699,16 @@ function closeSidebar(){
 
 /* ---------- Journal notes (in-memory, per-session) ---------- */
 const CHAPTER_TITLES = {
+  tok__intro: "Lesson: The Tokenomics Equation › Tokens are the Real Unit of Cost",
+  tok__gateway: "Lesson: The Tokenomics Equation › The AI Gateway Pattern",
+  tok__models: "Lesson: The Tokenomics Equation › Model Selection",
+  tok__wrap: "Lesson: The Tokenomics Equation › Wrap-up",
+  wh__intro: "Lesson: Webhooks › What is a Webhook?",
+  wh__workflow: "Lesson: Webhooks › How the Workflow Runs",
+  wh__vsapi: "Lesson: Webhooks › Webhooks vs. APIs",
+  wh__examples: "Lesson: Webhooks › Real-World Examples",
+  wh__wrap: "Lesson: Webhooks › Wrap-up",
+  "gtr__lord-i-need-you": "Guitar › Lord I Need You",
   aap__reflection: "Lesson: Agentic AI Patterns › 1. Reflection",
   aap__tooluse: "Lesson: Agentic AI Patterns › 2. Tool Use",
   aap__react: "Lesson: Agentic AI Patterns › 3. ReAct",
@@ -2850,6 +3744,75 @@ const CHAPTER_TITLES = {
   ds005__discussion: "Case DS-005: AI-Enabled Service Agent › Discussion Questions",
   general: "General reflections"
 };
+/* Chord-over-lyric tool: session-only store of whatever the reader types
+   themselves into a song's ChordPro-style box (e.g. "[G]Some words[C] here").
+   Claude never pre-fills or supplies the lyric text — only renders whatever
+   the reader has typed, using our own visual style (see .chordlyr-tool CSS). */
+const chordProStore = {};
+
+function renderChordPro(id){
+  const ta = document.getElementById('chordpro-input-' + id);
+  const out = document.getElementById('chord-render-' + id);
+  const text = ta.value;
+  chordProStore[id] = text;
+  out.innerHTML = '';
+  if(!text.trim()){ return; }
+  text.split('\n').forEach(line=>{
+    const lineDiv = document.createElement('div');
+    lineDiv.className = 'cr-line';
+    if(!line.trim()){
+      lineDiv.style.height = '10px';
+      out.appendChild(lineDiv);
+      return;
+    }
+    // Split on [Chord] markers, keeping the chord attached to the text that follows it
+    const parts = line.split(/(\[[^\]]+\])/g).filter(p => p.length);
+    let pendingChord = null;
+    let producedAny = false;
+    parts.forEach(part=>{
+      const m = part.match(/^\[([^\]]+)\]$/);
+      if(m){
+        pendingChord = m[1];
+        return;
+      }
+      // part is plain text; break it into words so each chord sits over the next word only
+      const words = part.split(/(\s+)/);
+      words.forEach(w=>{
+        if(w === '') return;
+        const span = document.createElement('span');
+        span.className = 'cr-word';
+        if(/^\s+$/.test(w)){
+          span.style.padding = '20px 4px 0 0';
+          span.textContent = w;
+        } else {
+          span.textContent = w;
+          if(pendingChord){
+            const tag = document.createElement('span');
+            tag.className = 'cr-chord';
+            tag.textContent = pendingChord;
+            span.appendChild(tag);
+            pendingChord = null;
+          }
+        }
+        lineDiv.appendChild(span);
+        producedAny = true;
+      });
+    });
+    if(pendingChord && !producedAny){
+      // a chord with nothing after it on the line (e.g. an instrumental break marker)
+      const span = document.createElement('span');
+      span.className = 'cr-word';
+      span.textContent = '';
+      const tag = document.createElement('span');
+      tag.className = 'cr-chord';
+      tag.textContent = pendingChord;
+      span.appendChild(tag);
+      lineDiv.appendChild(span);
+    }
+    out.appendChild(lineDiv);
+  });
+}
+
 const notesStore = {};
 /* Extra key points the reader saved out of a live Teach Me conversation,
    on top of the curated KEY_POINTS baked in for every chapter. Session-only,
@@ -2994,6 +3957,52 @@ function injectKeyPoints(){
 
 /* ---------- Teach-me chat panels ---------- */
 const KEY_POINTS = {
+  tok__intro: [
+    "LLM APIs bill per token (in + out), not a flat fee — cost scales directly with usage and context length.",
+    "Longer conversation history or bigger retrieved context = higher cost per call, even for a short question.",
+    "Verbose prompting habits quietly inflate spend; a feature that's cheap in a demo can get expensive once real usage kicks in.",
+  ],
+  tok__gateway: [
+    "An AI gateway sits in front of every LLM call instead of letting each feature call the provider directly.",
+    "Core jobs: metering (visibility), caching (avoid paying twice for the same answer), rate limiting (guardrails), and routing (which model serves this request).",
+    "Same discipline that eventually tamed cloud spend, applied specifically to token spend.",
+  ],
+  tok__models: [
+    "Not every task needs the most powerful/expensive model — treat model choice as a portfolio decision.",
+    "Route simple/high-volume/low-risk tasks to a cheaper model; reserve the frontier model for hard reasoning or high-stakes output.",
+    "Watch for hidden cost: a cheap model needing more retries can end up costlier than the 'expensive' model.",
+  ],
+  tok__wrap: [
+    "Core takeaway: treat token spend like a managed cloud resource (visibility + guardrails + right-sizing), not an afterthought.",
+    "Unmanaged token cost scales silently with adoption — it surfaces right when a feature is succeeding, the worst time to discover it.",
+  ],
+  wh__intro: [
+    "A webhook is a 'reverse API' — the server calls you the instant something happens, instead of you polling it repeatedly.",
+    "Push (webhook) vs. pull (traditional API): updates come to your app instead of your app asking for them.",
+  ],
+  wh__workflow: [
+    "Flow: register a URL → event happens → payload built as JSON → HTTP POST sent to your endpoint → your server processes it → you respond 200 OK.",
+    "No acknowledgement (200 OK) usually means the provider will retry delivery.",
+  ],
+  wh__vsapi: [
+    "Pull (API): your app asks repeatedly, most calls return 'nothing new' — wasteful and slower to catch changes.",
+    "Push (webhook): fewer wasted requests, near-real-time updates, less load on both sides.",
+    "Trade-off: you need a public endpoint and have to secure it — a bit more setup than an on-demand API call.",
+  ],
+  wh__examples: [
+    "Real examples: payment gateways (payment success/fail), GitHub (commits/PRs → CI/CD), Slack/CRM integrations, shipping carriers (delivery status).",
+    "Security note: verify incoming requests are genuinely from the expected source (signature check) — a webhook endpoint is a public POST target.",
+  ],
+  wh__wrap: [
+    "One-line takeaway: a webhook trades a little setup complexity for efficiency and near-instant updates over polling.",
+    "Default to a webhook (not a polling loop) whenever the real question is 'how do I know when X happens.'",
+  ],
+  "gtr__lord-i-need-you": [
+    "Matt Maher's \"Lord I Need You\" — Absolute Beginner difficulty, standard tuning, capo on the 3rd fret, sounding key Bb.",
+    "Only four chords needed: G, C, Em, D (as fretted — capo shifts the actual pitch up).",
+    "Chorus strumming is confirmed: D, DU, D, DU, D, DU, D, DU at ~75bpm.",
+    "Section-by-section chord order and Intro/Verse strumming are still open — noted honestly rather than guessed, pending confirmation.",
+  ],
   aap__reflection: [
     "Reflection = the model checks its own answer before it reaches you, instead of shipping the first draft.",
     "Flow: ask → answer → re-prompt with \"was that complete, what's missing, how could it improve?\" → let it revise.",
@@ -3104,6 +4113,7 @@ const KEY_POINTS = {
     "LVPEI uses a pyramid model (community care up to specialist centers) with built-in training at every tier, plus cross-subsidization (paying patients fund free/low-cost care) to stay both standardized and affordable.",
     "SN instead relies on a strong culture of equal-quality care for everyone, plus teleophthalmology/mobile units to extend reach without ballooning costs.",
     "Takeaway: standardization, attrition, errors, and training costs can all be tackled through either system design or culture — not just more spending.",
+    "On burnout/attrition specifically: LVPEI's fix is structural (career ladders, mentorship, tiered training baked into the system), while SN's is cultural (mission-driven community work, teleophthalmology/mobile units) — same problem, solved from opposite directions.",
   ],
   ds004__ai_question: [
     "Central question: where can AI raise quality of care without breaking affordability?",
@@ -3155,6 +4165,96 @@ const KEY_POINTS = {
 };
 
 const TEACH_DATA = {
+  tok__intro: {
+    intro: [
+      {t:"Think of a phone plan billed per minute instead of a flat monthly rate — the longer you talk, the more it costs. LLM APIs work like that, except the 'minutes' are tokens: every word in, and every word out."},
+      {t:"Technically: input tokens (your prompt + any history/context you send) and output tokens (what the model generates) are both counted and billed, usually at different rates."}
+    ],
+    faq: [
+      {kw:["why","cost","expensive"], q:"Why does this matter more than a normal software cost?", a:"Because it scales with success — the more people use a feature, the more it costs, unlike a flat license fee. A feature that's cheap in testing can get expensive fast once real users show up."},
+      {kw:["context","history","long"], q:"Why does conversation history affect cost?", a:"Most APIs are stateless — they don't remember your last message unless you resend it. So a long chat means resending the whole history each time, and you pay for all of it again on every turn."}
+    ]
+  },
+  tok__gateway: {
+    intro: [
+      {t:"Imagine every team in a company calling the electricity company directly, with no shared meter — nobody would know who used what until one huge bill arrived. A gateway is that shared, visible meter, sitting between every app and the LLM provider."},
+      {t:"Concretely it's a proxy service: your app calls the gateway, the gateway calls the real LLM, and in between it can log usage, cache repeat answers, cap spend, and choose which model actually handles the request."}
+    ],
+    faq: [
+      {kw:["cache","caching","repeat"], q:"How does caching actually save money here?", a:"If two requests ask essentially the same thing, the gateway can return the previously-computed answer instead of paying for a fresh LLM call — free for the second (and any later) identical request."},
+      {kw:["rate","limit","abuse"], q:"What does rate limiting protect against?", a:"A bug (like an infinite retry loop) or a single overly heavy user could otherwise run up unlimited cost. A cap on calls-per-minute or tokens-per-day keeps one runaway process from blowing the whole budget."}
+    ]
+  },
+  tok__models: {
+    intro: [
+      {t:"It's like using a moving truck to pick up one bag of groceries — technically it works, but you're paying for way more than you need. Using the biggest LLM for a simple task is the same idea."},
+      {t:"The practical move is routing: simple, well-defined tasks go to a smaller/cheaper model; genuinely hard or high-stakes tasks go to the expensive frontier model."}
+    ],
+    faq: [
+      {kw:["retry","hidden","actually"], q:"How can a cheap model end up costing more?", a:"If the small model gets things wrong often enough that you need extra retries or corrective prompts, those extra round-trips can add up to more total tokens spent than just using the pricier model once and getting it right."},
+      {kw:["decide","which","how"], q:"How do you decide which tasks go where?", a:"Usually by risk and difficulty: simple classification/formatting/extraction tasks go cheap; ambiguous, creative, or high-stakes reasoning tasks go to the stronger model."}
+    ]
+  },
+  tok__wrap: {
+    intro: [
+      {t:"The whole lesson in one sentence: LLM cost behaves like a utility bill (pay for what you use) not a subscription (pay the same no matter what) — so it needs monitoring and guardrails, the same way cloud infrastructure spend eventually did."}
+    ],
+    faq: [
+      {kw:["takeaway","summary","main"], q:"What's the one thing to remember?", a:"Don't treat token spend as a fixed cost you set once — treat it as a variable, usage-driven cost you actively meter, cap, and optimize, the same way you'd manage cloud compute spend."}
+    ]
+  },
+  wh__intro: {
+    intro: [
+      {t:"It's the difference between constantly checking your mailbox versus having the mail carrier ring your doorbell when something arrives. Polling is checking; a webhook is the doorbell."},
+      {t:"You register a URL once with the other system, and it calls that URL automatically whenever a relevant event happens — no repeated asking required."}
+    ],
+    faq: [
+      {kw:["reverse","api","mean"], q:"Why is it called a 'reverse API'?", a:"With a normal API, your app is the one making the call. With a webhook, that direction flips — the other server makes the call, into your app."}
+    ]
+  },
+  wh__workflow: {
+    intro: [
+      {t:"Think of it like a courier delivery: something happens (your package ships), a note gets written up (the payload), it gets delivered to your door (the POST request), and you sign for it (the 200 OK) so they know it arrived."}
+    ],
+    faq: [
+      {kw:["retry","fail","miss"], q:"What happens if my server is down when the webhook fires?", a:"Most providers detect the missing 200 OK and retry delivery a few times on a backoff schedule — but if your server stays down long enough, the event can eventually be dropped, so uptime matters."}
+    ]
+  },
+  wh__vsapi: {
+    intro: [
+      {t:"Polling is like refreshing a delivery-tracking page every 5 minutes hoping for an update. A webhook is the courier texting you the moment it actually updates — same information, far less wasted effort."}
+    ],
+    faq: [
+      {kw:["setup","harder","complex"], q:"So webhooks are strictly better?", a:"Not strictly — they need a public, secure endpoint on your side, which is more setup than just calling an API when you want data. For frequent real-time updates they're worth it; for a one-off lookup, a normal API call is simpler."}
+    ]
+  },
+  wh__examples: {
+    intro: [
+      {t:"Nearly every 'instant notification' feature you've used — a payment confirming immediately, a CI pipeline kicking off right after you push code — is a webhook working behind the scenes."}
+    ],
+    faq: [
+      {kw:["secure","security","verify"], q:"Why does the security note matter so much?", a:"Because your webhook endpoint is a public URL — anyone could POST to it pretending to be the real sender. Verifying a signature ensures you only act on requests that genuinely came from the expected source."}
+    ]
+  },
+  wh__wrap: {
+    intro: [
+      {t:"One-line summary: reach for a webhook whenever you need to know when something happens elsewhere — it's more setup up front, but far more efficient and immediate than polling."}
+    ],
+    faq: [
+      {kw:["remember","takeaway"], q:"What's the one thing to remember?", a:"Push beats pull for 'notify me when X happens' — the small extra setup (a secured endpoint) pays for itself in efficiency and speed."}
+    ]
+  },
+  "gtr__lord-i-need-you": {
+    intro: [
+      {t:"This is a genuinely beginner-friendly song once the capo's on — with the capo at fret 3, you only ever need four open-position shapes: G, C, Em, and D."},
+      {t:"The capo does the transposing for you: you play the easy open shapes, but because of the capo the song actually sounds in the key of Bb — no barre chords needed."}
+    ],
+    faq: [
+      {kw:["capo","why","transpose"], q:"Why use a capo instead of just playing the real chords for Bb?", a:"Bb normally needs a barre chord, which is much harder for a beginner. The capo shifts the pitch up for you, so you can play the easy open G/C/Em/D shapes and still get the right sounding key."},
+      {kw:["strum","pattern","chorus"], q:"How do I count out the chorus strumming pattern?", a:"D, DU, D, DU, D, DU, D, DU at about 75bpm — say 'down, down-up, down, down-up' out loud while you strum until it feels even, then slow it right down and build up speed."},
+      {kw:["progression","order","verse","intro"], q:"What's the full chord order for the verse and intro?", a:"That part isn't locked in yet — the confirmed set is the four chord shapes (G, C, Em, D) and the chorus strumming pattern above."}
+    ]
+  },
   aap__reflection: {
     intro: [
       {t:"Imagine you write an email, then before hitting send, you re-read it once and think 'wait, I forgot to mention the deadline.' That's Reflection — the model answers, then reviews its own answer before it reaches you."},
@@ -3411,7 +4511,8 @@ const TEACH_DATA = {
     faq: [
       {kw:["pyramid","lvpei","how"], q:"How does the LVPEI pyramid actually solve training cost?", a:"Because every tier of the pyramid is simultaneously a service site AND a training site, teaching isn't a separate expensive activity you do on top of care — it's baked into daily operations, so it doesn't evaporate every time someone leaves."},
       {kw:["culture","sn","compassion"], q:"Can 'culture' really substitute for governance rules?", a:"SN's bet is that a strong shared ethos (same quality for every patient, rich or poor) creates consistency without needing heavy top-down enforcement — but it depends on hiring and reinforcing that ethos constantly; it's harder to scale mechanically than a pyramid structure is."},
-      {kw:["cross-subsidization","how","works"], q:"How does cross-subsidization actually work financially?", a:"Paying patients are charged enough to cover their own cost plus a margin that funds care for patients who pay little or nothing — LVPEI's paying patients cover more than half of 2 million annual outpatients this way, so 'affordable' doesn't mean 'underfunded'."}
+      {kw:["cross-subsidization","how","works"], q:"How does cross-subsidization actually work financially?", a:"Paying patients are charged enough to cover their own cost plus a margin that funds care for patients who pay little or nothing — LVPEI's paying patients cover more than half of 2 million annual outpatients this way, so 'affordable' doesn't mean 'underfunded'."},
+      {kw:["burnout","attrition","turnover"], q:"How do LVPEI and SN each actually address burnout/attrition?", a:"LVPEI fixes it structurally — clear career ladders, mentorship, and training baked into every tier of its pyramid give staff somewhere to grow instead of leaving. SN fixes it culturally — mission-driven community work (teleophthalmology, mobile surgical units) gives staff meaningful purpose that keeps them engaged. Same underlying problem, one solved by system design, the other by culture."}
     ]
   },
   ds004__ai_question: {
